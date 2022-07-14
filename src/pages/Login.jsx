@@ -22,7 +22,7 @@ const Login = (props) => {
     localStorage.setItem('user', JSON.stringify(obj));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    history.push('/recipes');
+    history.push('/foods');
   };
 
   return (
