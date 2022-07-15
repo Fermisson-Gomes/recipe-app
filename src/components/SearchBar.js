@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../context/Context';
+import {
+  requestFirstLetter, requestFoodName,
+  requestIngredient,
+} from '../endPoints/requestAPI.js';
 
 function SearchBar() {
+  const {
+    search,
+    // setRequestIngredient,
+    // ingredientIsMarked,
+    // foodNameIsMarked,
+    // firstLetterIsMarked,
+    // setFirstLetterIsMarked,
+    // setFoodNameIsMarked,
+    // setIngredientIsMarked,
+  } = useContext(Context);
+
   return (
     <div>
       <label htmlFor="ingredient">
@@ -9,6 +25,9 @@ function SearchBar() {
           name="option"
           id="ingredient"
           data-testid="ingredient-search-radio"
+          value="ingredient"
+          // onChange={  }
+
         />
         Ingredient
       </label>
@@ -18,6 +37,8 @@ function SearchBar() {
           name="option"
           id="name"
           data-testid="name-search-radio"
+          onChange={ () => requestFoodName(search) }
+
         />
         Name
       </label>
@@ -27,6 +48,7 @@ function SearchBar() {
           name="option"
           id="first-letter"
           data-testid="first-letter-search-radio"
+          onChange={ () => requestFirstLetter(search) }
         />
         First Letter
       </label>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Context } from '../context/Context';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -8,6 +9,7 @@ function Header() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
+  const { search, handleSearchChange } = useContext(Context);
   const [inputSearch, setInputSearch] = useState(false);
 
   return (
@@ -27,29 +29,35 @@ function Header() {
       {pathname.endsWith('profile') && (<h1 data-testid="page-title">Profile</h1>)}
       {pathname.endsWith('foods') && (<h1 data-testid="page-title">Foods</h1>)}
       {pathname.endsWith('done-recipes')
-      && (<h1 data-testid="page-title">Done Recipes</h1>)}
+&& (<h1 data-testid="page-title">Done Recipes</h1>)}
       {pathname.endsWith('favorite-recipes')
-        && (<h1 data-testid="page-title">Favorite Recipes</h1>)}
+&& (<h1 data-testid="page-title">Favorite Recipes</h1>)}
       {(pathname.endsWith('foods') || pathname.endsWith('drinks'))
-      && (
-        <button
-          type="button"
-          data-testid="search-btn"
-          onClick={ () => setInputSearch(!inputSearch) }
-        >
-          <img
-            src={ searchIcon }
-            alt="search-icon"
-            data-testid="search-top-btn"
-          />
-        </button>)}
+&& (
+  <button
+    type="button"
+    data-testid="search-btn"
+    onClick={ () => setInputSearch(!inputSearch) }
+  >
+    <img
+      src={ searchIcon }
+      alt="search-icon"
+      data-testid="search-top-btn"
+    />
+  </button>)}
       {inputSearch
-      && (
-        <>
-          <input type="text" data-testid="search-input" placeholder="Search recipe" />
-          <SearchBar />
-        </>
-      )}
+&& (
+  <>
+    <input
+      type="text"
+      data-testid="search-input"
+      placeholder="Search recipe"
+      onChange={ handleSearchChange }
+      value={ search }
+    />
+    <SearchBar />
+  </>
+)}
     </header>
   );
 }
