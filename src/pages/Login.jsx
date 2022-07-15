@@ -10,7 +10,7 @@ const Login = (props) => {
     const regexValidation = /\S+@\w+\.\w+/i;
     const emailValidation = regexValidation.test(loginState.email);
     const n6 = 6;
-    const passwordValidation = (loginState.password.length >= n6);
+    const passwordValidation = (loginState.password.length > n6);
     if (emailValidation && passwordValidation) setIsDisabled(false);
     else setIsDisabled(true);
   }, [loginState]);
@@ -22,7 +22,7 @@ const Login = (props) => {
     localStorage.setItem('user', JSON.stringify(obj));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    history.push('/recipes');
+    history.push('/foods');
   };
 
   return (
