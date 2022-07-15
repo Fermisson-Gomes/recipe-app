@@ -5,8 +5,8 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 function Header() {
-  const path = window.location.pathname;
   const history = useHistory();
+  const { location: { pathname } } = history;
 
   const [inputSearch, setInputSearch] = useState(false);
 
@@ -23,13 +23,14 @@ function Header() {
           data-testid="profile-top-btn"
         />
       </button>
-      {path.endsWith('drinks') && (<h1 data-testid="page-title">Drinks</h1>)}
-      {path.endsWith('profile') && (<h1 data-testid="page-title">Profile</h1>)}
-      {path.endsWith('foods') && (<h1 data-testid="page-title">Foods</h1>)}
-      {path.endsWith('done-recipes') && (<h1 data-testid="page-title">Done Recipes</h1>)}
-      {path.endsWith('favorite-recipes')
+      {pathname.endsWith('drinks') && (<h1 data-testid="page-title">Drinks</h1>)}
+      {pathname.endsWith('profile') && (<h1 data-testid="page-title">Profile</h1>)}
+      {pathname.endsWith('foods') && (<h1 data-testid="page-title">Foods</h1>)}
+      {pathname.endsWith('done-recipes')
+      && (<h1 data-testid="page-title">Done Recipes</h1>)}
+      {pathname.endsWith('favorite-recipes')
         && (<h1 data-testid="page-title">Favorite Recipes</h1>)}
-      {(path.endsWith('foods') || path.endsWith('drinks'))
+      {(pathname.endsWith('foods') || pathname.endsWith('drinks'))
       && (
         <button
           type="button"
