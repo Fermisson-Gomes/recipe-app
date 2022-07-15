@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -6,6 +6,8 @@ import searchIcon from '../images/searchIcon.svg';
 function Header() {
   const path = window.location.pathname;
   const history = useHistory();
+
+  const [inputSearch, setInputSearch] = useState(false);
 
   return (
     <header>
@@ -27,7 +29,20 @@ function Header() {
       {path.endsWith('favorite-recipes')
         && (<h1 data-testid="page-title">Favorite Recipes</h1>)}
       {(path.endsWith('foods') || path.endsWith('drinks'))
-      && <img src={ searchIcon } alt="search-icon" data-testid="search-top-btn" />}
+      && (
+        <button
+          type="button"
+          data-testid="search-btn"
+          onClick={ () => setInputSearch(!inputSearch) }
+        >
+          <img
+            src={ searchIcon }
+            alt="search-icon"
+            data-testid="search-top-btn"
+          />
+        </button>)}
+      {inputSearch
+      && <input type="text" data-testid="search-input" placeholder="Search recipe" />}
     </header>
   );
 }
