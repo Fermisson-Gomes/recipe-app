@@ -4,7 +4,6 @@ import './App.css';
 import { Provider } from './context/Context';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
-import Receitas from './pages/Receitas';
 import FoodsId from './pages/FoodsId';
 import Drinks from './pages/Drinks';
 import DrinksId from './pages/DrinksId';
@@ -19,7 +18,6 @@ function App() {
     <Provider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/recipes" component={ Receitas } />
         <Route exact path="/foods" component={ Foods } />
         <Route path="/foods:id" component={ FoodsId } />
         <Route exact path="/drinks" component={ Drinks } />

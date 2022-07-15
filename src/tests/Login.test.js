@@ -69,7 +69,7 @@ describe('testes da pagina de Login', () => {
     userEvent.type(passwordInput, 'fermilson');
     userEvent.click(enterBtn);
 
-    expect(history.location.pathname).toBe('/recipes');
+    expect(history.location.pathname).toBe('/foods');
 
   })
 })
