@@ -1,21 +1,42 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Context } from '../context/Context';
 import {
   requestFirstLetter, requestFoodName,
-  requestIngredient,
-} from '../endPoints/requestAPI.js';
+  requestIngredient, requestIngredientDrinks, requestDrinkName, requestFirstLetterDrinks,
+} from '../endPoints/requestAPI';
 
 function SearchBar() {
+  const history = useHistory();
   const {
     search,
-    // setRequestIngredient,
-    // ingredientIsMarked,
-    // foodNameIsMarked,
-    // firstLetterIsMarked,
-    // setFirstLetterIsMarked,
-    // setFoodNameIsMarked,
-    // setIngredientIsMarked,
+    optionValue,
+    setOptionValue,
+    setResponse,
   } = useContext(Context);
+
+  const handleClick = async () => {
+    const { location: { pathname } } = history;
+
+    if (pathname === '/foods') {
+      const requests = {
+        ingredient: requestIngredient,
+        foodName: requestFoodName,
+        firstLetter: requestFirstLetter,
+      };
+      const response = await requests[optionValue](search);
+      setResponse(response);
+    }
+    if (pathname === '/drinks') {
+      const requests = {
+        ingredient: requestIngredientDrinks,
+        foodName: requestDrinkName,
+        firstLetter: requestFirstLetterDrinks,
+      };
+      const response = await requests[optionValue](search);
+      setResponse(response);
+    }
+  };
 
   return (
     <div>
@@ -26,7 +47,7 @@ function SearchBar() {
           id="ingredient"
           data-testid="ingredient-search-radio"
           value="ingredient"
-          // onChange={  }
+          onChange={ ({ target: { value } }) => setOptionValue(value) }
 
         />
         Ingredient
@@ -36,8 +57,9 @@ function SearchBar() {
           type="radio"
           name="option"
           id="name"
+          value="foodName"
           data-testid="name-search-radio"
-          onChange={ () => requestFoodName(search) }
+          onChange={ ({ target: { value } }) => setOptionValue(value) }
 
         />
         Name
@@ -46,15 +68,17 @@ function SearchBar() {
         <input
           type="radio"
           name="option"
+          value="firstLetter"
           id="first-letter"
           data-testid="first-letter-search-radio"
-          onChange={ () => requestFirstLetter(search) }
+          onChange={ ({ target: { value } }) => setOptionValue(value) }
         />
         First Letter
       </label>
       <button
         type="button"
         data-testid="exec-search-btn"
+        onClick={ handleClick }
       >
         Search
       </button>

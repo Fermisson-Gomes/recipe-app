@@ -5,7 +5,7 @@ import Foods from '../pages/Foods';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
-describe('testes da pagina de Login', () => {
+describe('testes do componente Header', () => {
   it('testa se o header possui um botão que redireciona para o profile', () => {
     const { history } = renderWithRouter(<Foods />);
 
