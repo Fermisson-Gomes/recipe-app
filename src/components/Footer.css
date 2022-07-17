@@ -1,0 +1,16 @@
+.footer {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgb(73, 70, 70);
+    position: fixed;
+}
+
+.footer-icon {
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 5px;
+}
