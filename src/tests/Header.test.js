@@ -16,7 +16,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const btn = screen.getByTestId(/profile-btn/i);
-    expect(btn).toBeInTheDocument();
 
     userEvent.click(btn);
     expect(history.location.pathname).toBe('/profile');
@@ -33,7 +32,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -52,7 +50,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -75,7 +72,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const btn = screen.getByTestId(/profile-btn/i);
-    expect(btn).toBeInTheDocument();
 
     userEvent.click(btn);
 
