@@ -18,7 +18,7 @@ export const requestFirstLetter = async (primeiraLetra) => {
     const data = await request.json();
     return data;
   }
-  return global.alert('Your search must have only 1 (one) character');
+  global.alert('Your search must have only 1 (one) character');
 };
 
 export const requestIngredientDrinks = async (ingrediente) => {
@@ -40,5 +40,5 @@ export const requestFirstLetterDrinks = async (primeiraLetra) => {
     const data = await request.json();
     return data;
   }
-  return global.alert('Your search must have only 1 (one) character');
+  global.alert('Your search must have only 1 (one) character');
 };
