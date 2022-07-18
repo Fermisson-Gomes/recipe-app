@@ -1,12 +1,22 @@
+const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+
 export const requestIngredient = async (ingrediente) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
   const data = await fetch(endpoint).then((resp) => resp.json());
+  if (data.meals === null) {
+    global.alert(alert);
+    return null;
+  }
   return data;
 };
 
 export const requestFoodName = async (nome) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${nome}`;
   const data = await fetch(endpoint).then((resp) => resp.json());
+  if (data.meals === null) {
+    global.alert(alert);
+    return null;
+  }
   return data;
 };
 
@@ -24,12 +34,20 @@ export const requestFirstLetter = async (primeiraLetra) => {
 export const requestIngredientDrinks = async (ingrediente) => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
   const data = await fetch(endpoint).then((resp) => resp.json());
+  if (data.drinks === null) {
+    global.alert(alert);
+    return null;
+  }
   return data;
 };
 
 export const requestDrinkName = async (nome) => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${nome}`;
   const data = await fetch(endpoint).then((resp) => resp.json());
+  if (data.drinks === null) {
+    global.alert(alert);
+    return null;
+  }
   return data;
 };
 
