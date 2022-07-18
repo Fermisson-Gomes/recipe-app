@@ -37,12 +37,12 @@ function Provider({ children }) {
   const { push, location: { pathname } } = useHistory();
 
   useEffect(() => {
-    if (pathname === '/foods' && response !== null && response.meals.length === 1) {
+    if (pathname === '/foods' && response && response.meals.length === 1) {
       const idMeals = response.meals[0].idMeal;
       push(`/foods/${idMeals}`);
     }
 
-    if (pathname === '/drinks' && response !== null && response.drinks.length === 1) {
+    if (pathname === '/drinks' && response && response.drinks.length === 1) {
       const idDrinks = response.drinks[0].idDrink;
       push(`/drinks/${idDrinks}`);
     }
