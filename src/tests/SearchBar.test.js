@@ -7,7 +7,7 @@ import { drinkDataFirstLetter, drinkDataIngredient, drinkDataName, foodDataFirst
 
 describe('testes do componente SearchBar na pagina /foods', () => {
   it('testa se ao clicar no ícone de seach o input aparece', () => {
-    const {history} = renderWithRouter(<App/>)
+    renderWithRouter(<App/>)
     const emailInput = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterBtn = screen.getByTestId(/login-submit-btn/i);
@@ -17,7 +17,6 @@ describe('testes do componente SearchBar na pagina /foods', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -48,22 +47,23 @@ describe('testes do componente SearchBar na pagina /foods', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
     const ingredient = screen.getByTestId(/ingredient-search-radio/i);
+    const firstLetter = screen.getByTestId(/first-letter-search-radio/i);
+    const foodName = screen.getByTestId(/name-search-radio/i);
+
+
 
     userEvent.click(ingredient);
 
     expect(ingredient).toHaveProperty('checked');
 
-    const firstLetter = screen.getByTestId(/first-letter-search-radio/i);
     userEvent.click(firstLetter);
 
     expect(firstLetter).toHaveProperty('checked');
 
-    const foodName = screen.getByTestId(/name-search-radio/i);
     userEvent.click(foodName);
 
     expect(foodName).toHaveProperty('checked');
@@ -85,7 +85,6 @@ describe('testes do componente SearchBar na pagina /foods', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -117,7 +116,6 @@ describe('testes do componente SearchBar na pagina /foods', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -149,7 +147,6 @@ describe('testes do componente SearchBar na pagina /foods', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -178,7 +175,6 @@ describe('testes do componente SearchBar na pagina /foods', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -224,9 +220,7 @@ describe('testes do componente SearchBar na pagina /foods', () => {
 
   //   expect(history.location.pathname).toBeCalled();
   // })
-});
 
-describe('testes do componente SearchBar na pagina /drinks', () => {
   it('testa se ao clicar no botão search com a opção ingredient selecionada é feita a requisição a API correta', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
@@ -247,7 +241,6 @@ describe('testes do componente SearchBar na pagina /drinks', () => {
     userEvent.click(drinksBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -283,7 +276,6 @@ describe('testes do componente SearchBar na pagina /drinks', () => {
     userEvent.click(drinksBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -319,7 +311,6 @@ describe('testes do componente SearchBar na pagina /drinks', () => {
     userEvent.click(drinksBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -352,7 +343,6 @@ describe('testes do componente SearchBar na pagina /drinks', () => {
     userEvent.click(drinksBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
