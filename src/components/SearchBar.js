@@ -5,6 +5,7 @@ import {
   requestFirstLetter, requestFoodName,
   requestIngredient, requestIngredientDrinks, requestDrinkName, requestFirstLetterDrinks,
 } from '../endPoints/requestAPI';
+import './SearchBar.css';
 
 function SearchBar() {
   const history = useHistory();
@@ -39,7 +40,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="search-bar">
       <label htmlFor="ingredient">
         <input
           type="radio"
