@@ -8,7 +8,9 @@ import './Header.css';
 
 function Header() {
   const history = useHistory();
-  const { location: { pathname } } = history;
+  const {
+    location: { pathname },
+  } = history;
 
   const { search, handleSearchChange } = useContext(Context);
   const [inputSearch, setInputSearch] = useState(false);
@@ -18,7 +20,9 @@ function Header() {
       <div className="header">
         <button
           type="button"
-          onClick={ () => { history.push('/profile'); } }
+          onClick={ () => {
+            history.push('/profile');
+          } }
           data-testid="profile-btn"
           className="header-icon"
         >
@@ -28,42 +32,47 @@ function Header() {
             data-testid="profile-top-btn"
           />
         </button>
-        {pathname.endsWith('drinks') && (<h1 data-testid="page-title">Drinks</h1>)}
-        {pathname.endsWith('profile') && (<h1 data-testid="page-title">Profile</h1>)}
-        {pathname.endsWith('foods') && (<h1 data-testid="page-title">Foods</h1>)}
-        {pathname.endsWith('done-recipes')
-&& (<h1 data-testid="page-title">Done Recipes</h1>)}
-        {pathname.endsWith('favorite-recipes')
-&& (<h1 data-testid="page-title">Favorite Recipes</h1>)}
-        {(pathname.endsWith('foods') || pathname.endsWith('drinks'))
-&& (
-  <button
-    type="button"
-    data-testid="search-btn"
-    onClick={ () => setInputSearch(!inputSearch) }
-    className="header-icon"
-  >
-    <img
-      src={ searchIcon }
-      alt="search-icon"
-      data-testid="search-top-btn"
-    />
-  </button>)}
+        {pathname.endsWith('drinks') && (
+          <h1 data-testid="page-title">Drinks</h1>
+        )}
+        {pathname.endsWith('profile') && (
+          <h1 data-testid="page-title">Profile</h1>
+        )}
+        {pathname.endsWith('foods') && <h1 data-testid="page-title">Foods</h1>}
+        {pathname.endsWith('done-recipes') && (
+          <h1 data-testid="page-title">Done Recipes</h1>
+        )}
+        {pathname.endsWith('favorite-recipes') && (
+          <h1 data-testid="page-title">Favorite Recipes</h1>
+        )}
+        {(pathname.endsWith('foods') || pathname.endsWith('drinks')) && (
+          <button
+            type="button"
+            data-testid="search-btn"
+            onClick={ () => setInputSearch(!inputSearch) }
+            className="header-icon"
+          >
+            <img
+              src={ searchIcon }
+              alt="search-icon"
+              data-testid="search-top-btn"
+            />
+          </button>
+        )}
       </div>
-      {inputSearch
-&& (
-  <>
-    <input
-      type="text"
-      data-testid="search-input"
-      placeholder="Search recipe"
-      onChange={ handleSearchChange }
-      value={ search }
-      className="input-header"
-    />
-    <SearchBar />
-  </>
-)}
+      {inputSearch && (
+        <>
+          <input
+            type="text"
+            data-testid="search-input"
+            placeholder="Search recipe"
+            onChange={ handleSearchChange }
+            value={ search }
+            className="input-header"
+          />
+          <SearchBar />
+        </>
+      )}
     </header>
   );
 }
