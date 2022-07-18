@@ -1,16 +1,21 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Foods from '../pages/Foods';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 
 describe('testes do componente Header', () => {
   it('testa se o header possui um botão que redireciona para o profile', () => {
-    const { history } = renderWithRouter(<Foods />);
+    const { history } = renderWithRouter(<App />);
+    const emailInput = screen.getByTestId(/email-input/i);
+    const passwordInput = screen.getByTestId(/password-input/i);
+    const enterBtn = screen.getByTestId(/login-submit-btn/i);
+
+    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
+    userEvent.type(passwordInput, 'fermilson');
+    userEvent.click(enterBtn);
 
     const btn = screen.getByTestId(/profile-btn/i);
-    expect(btn).toBeInTheDocument();
 
     userEvent.click(btn);
     expect(history.location.pathname).toBe('/profile');
@@ -27,7 +32,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -46,7 +50,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
-    expect(searchBtn).toBeInTheDocument();
 
     userEvent.click(searchBtn);
 
@@ -69,7 +72,6 @@ describe('testes do componente Header', () => {
     userEvent.click(enterBtn);
 
     const btn = screen.getByTestId(/profile-btn/i);
-    expect(btn).toBeInTheDocument();
 
     userEvent.click(btn);
 

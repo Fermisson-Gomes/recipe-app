@@ -17,7 +17,6 @@ describe('testes do componente Footer', () => {
         userEvent.click(enterBtn);
     
         const searchBtn = screen.getByTestId(/search-top-btn/i);
-        expect(searchBtn).toBeInTheDocument();
     
         userEvent.click(searchBtn);
     
