@@ -4,7 +4,7 @@ import { Context } from '../context/Context';
 
 const Login = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
-  const { handleChange, loginState } = useContext(Context);
+  const { handleChange, loginState, setUserEmail } = useContext(Context);
 
   useEffect(() => {
     const regexValidation = /\S+@\w+\.\w+/i;
@@ -22,6 +22,7 @@ const Login = (props) => {
     localStorage.setItem('user', JSON.stringify(obj));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    setUserEmail(obj.email);
     history.push('/foods');
   };
 

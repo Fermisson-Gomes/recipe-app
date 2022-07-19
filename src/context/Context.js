@@ -33,12 +33,6 @@ function Provider({ children }) {
       const idDrinks = response.drinks[0].idDrink;
       push(`/drinks/${idDrinks}`);
     }
-
-    if (pathname === '/profile') {
-      const userLocalStorage = localStorage.getItem('user');
-      const jsonParse = JSON.parse(userLocalStorage).email;
-      setUserEmail(jsonParse);
-    }
   }, [push, pathname, response]);
 
   const contextValue = {
