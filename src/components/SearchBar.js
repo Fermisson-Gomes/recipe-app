@@ -26,7 +26,6 @@ function SearchBar() {
         firstLetter: requestFirstLetter,
       };
       const response = await requests[optionValue](search);
-
       setResponse(response);
     }
     if (pathname === '/drinks') {

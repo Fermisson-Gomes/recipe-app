@@ -3,6 +3,7 @@ const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 export const requestIngredient = async (ingrediente) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
   const data = await fetch(endpoint).then((resp) => resp.json());
+  console.log(data);
   if (data.meals === null) {
     global.alert(alert);
     return null;

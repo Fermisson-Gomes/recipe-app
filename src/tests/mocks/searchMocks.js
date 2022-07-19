@@ -303,6 +303,10 @@ export const foodDataOneRecipe = {
     ]
 };
 
+export const foodDataNull = {
+    "meals": null,
+}
+
 export const drinkDataIngredient = {
   "drinks": [
       {
@@ -648,3 +652,7 @@ export const drinkDataFirstLetter = {
      
   ]
 };
+
+export const drinkDataNull = {
+    "meals": null
+}
