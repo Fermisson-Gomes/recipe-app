@@ -33,6 +33,7 @@ function Recipes() {
               data-testid={ `${item.strCategory}-category-filter` }
             >
               {item.strCategory}
+              {''}
 
             </button>
           ))}
