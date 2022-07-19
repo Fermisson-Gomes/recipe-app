@@ -5,22 +5,26 @@ import RecipeCard from './RecipeCard';
 
 function Recipes() {
   const { responseFood, responseDrink,
-    categoryMeal, categoryDrink } = useContext(Context);
+    categoryMeal, categoryDrink, setCategoryButton } = useContext(Context);
   const history = useHistory();
   const {
     location: { pathname },
   } = history;
   const twelve = 12;
   const five = 5;
+
   return (
     <>
       <header>
+        <button type="button" data-testid="All-category-filter">All</button>
         {pathname.endsWith('foods') && categoryMeal && categoryMeal.meals.slice(0, five)
           .map((item) => (
             <button
               key={ item.strCategory }
               type="button"
+              value={ item.strCategory }
               data-testid={ `${item.strCategory}-category-filter` }
+              onClick={ ({ target: { value } }) => setCategoryButton(value) }
             >
               {item.strCategory}
             </button>
@@ -30,7 +34,9 @@ function Recipes() {
             <button
               key={ item.strCategory }
               type="button"
+              value={ item.strCategory }
               data-testid={ `${item.strCategory}-category-filter` }
+              onClick={ ({ target: { value } }) => setCategoryButton(value) }
             >
               {item.strCategory}
               {''}
