@@ -61,3 +61,15 @@ export const requestFirstLetterDrinks = async (primeiraLetra) => {
   }
   global.alert('Your search must have only 1 (one) character');
 };
+
+export const requestAllFoods = async () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const data = await fetch(endpoint).then((resp) => resp.json());
+  return data;
+};
+
+export const requestAllDrinks = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const data = await fetch(endpoint).then((resp) => resp.json());
+  return data;
+};
