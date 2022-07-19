@@ -13,7 +13,8 @@ function SearchBar() {
     search,
     optionValue,
     setOptionValue,
-    setResponse,
+    setResponseFood,
+    setResponseDrink,
   } = useContext(Context);
 
   const handleClick = async () => {
@@ -27,7 +28,7 @@ function SearchBar() {
       };
       const response = await requests[optionValue](search);
 
-      setResponse(response);
+      setResponseFood(response);
     }
     if (pathname === '/drinks') {
       const requests = {
@@ -37,7 +38,7 @@ function SearchBar() {
       };
       const response = await requests[optionValue](search);
 
-      setResponse(response);
+      setResponseDrink(response);
     }
   };
 
