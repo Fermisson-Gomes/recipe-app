@@ -1,7 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import { requestAllDrinks, requestAllFoods } from '../endPoints/requestAPI';
+import {
+  requestAllDrinks,
+  requestAllFoods, requestCategoryDrink, requestCategoryFoods,
+} from '../endPoints/requestAPI';
 
 export const Context = createContext();
 function Provider({ children }) {
@@ -15,6 +18,8 @@ function Provider({ children }) {
   const [responseDrink, setResponseDrink] = useState(null);
   const [search, setSearch] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [categoryMeal, setCategoryMeal] = useState();
+  const [categoryDrink, setCategoryDrink] = useState();
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginState((old) => ({ ...old, [name]: value }));
@@ -22,6 +27,16 @@ function Provider({ children }) {
   const handleSearchChange = ({ target: { value } }) => {
     setSearch(value);
   };
+
+  useEffect(() => {
+    const requestCategories = async () => {
+      const meal = await requestCategoryFoods();
+      setCategoryMeal(meal);
+      const drink = await requestCategoryDrink();
+      setCategoryDrink(drink);
+    };
+    requestCategories();
+  }, []);
 
   useEffect(() => {
     const ReqAPI = async () => {
@@ -57,6 +72,8 @@ function Provider({ children }) {
     userEmail,
     setUserEmail,
     setLoginState,
+    categoryDrink,
+    categoryMeal,
   };
   return (
     <Context.Provider value={ contextValue }>
