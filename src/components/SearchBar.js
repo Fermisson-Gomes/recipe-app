@@ -27,8 +27,6 @@ function SearchBar() {
       };
       const response = await requests[optionValue](search);
 
-      // console.log(response);
-
       setResponse(response);
     }
     if (pathname === '/drinks') {
@@ -38,7 +36,7 @@ function SearchBar() {
         firstLetter: requestFirstLetterDrinks,
       };
       const response = await requests[optionValue](search);
-      // console.log(response);
+
       setResponse(response);
     }
   };
