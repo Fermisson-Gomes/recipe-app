@@ -1,52 +1,28 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Context } from '../context/Context';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-function RecipeCard() {
-  const { response } = useContext(Context);
-  const twelve = 12;
-  // const array = response.slice(0, twelve);
-  const history = useHistory();
-  const {
-    location: { pathname },
-  } = history;
-
+function RecipeCard(props) {
+  const { str, strThumb, index } = props;
   return (
-    <div>
-      {pathname.endsWith('foods') && response && response.meals.slice(0, twelve)
-        .map((e, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-          >
-            <p data-testid={ `${index}-card-name` }>
-              { e.strMeal }
-            </p>
-            <img
-              src={ e.strMealThumb }
-              data-testid={ `${index}-card-img` }
-              alt={ e.strMeal }
-            />
-          </div>
-        ))}
-      {pathname.endsWith('drinks') && response && response.drinks.slice(0, twelve)
-        .map((e, index) => (
-          <div
-            key={ index }
-            data-testid={ `${index}-recipe-card` }
-          >
-            <p data-testid={ `${index}-card-name` }>
-              { e.strDrink }
-            </p>
-            <img
-              src={ e.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-              alt={ e.strDrink }
-            />
-          </div>
-        ))}
+    <div
+      data-testid={ `${index}-recipe-card` }
+    >
+      <p data-testid={ `${index}-card-name` }>
+        { str }
+      </p>
+      <img
+        src={ strThumb }
+        data-testid={ `${index}-card-img` }
+        alt={ str }
+      />
     </div>
   );
 }
+
+RecipeCard.propTypes = {
+  index: PropTypes.number.isRequired,
+  str: PropTypes.string.isRequired,
+  strThumb: PropTypes.string.isRequired,
+};
 
 export default RecipeCard;
