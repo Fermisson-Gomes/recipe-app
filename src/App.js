@@ -4,9 +4,8 @@ import './App.css';
 import { Provider } from './context/Context';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
-import FoodsId from './pages/FoodsId';
+import RecipeDetails from './pages/RecipeDetails';
 import Drinks from './pages/Drinks';
-import DrinksId from './pages/DrinksId';
 import FoodsInProgress from './pages/FoodsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
 import Profile from './pages/Profile';
@@ -19,9 +18,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/foods" component={ Foods } />
-        <Route path="/foods:id" component={ FoodsId } />
+        <Route path="/foods/:id" component={ RecipeDetails } />
         <Route exact path="/drinks" component={ Drinks } />
-        <Route path="/drinks:id" component={ DrinksId } />
+        <Route path="/drinks/:id" component={ RecipeDetails } />
         <Route path="/foods/:id/in-progress" component={ FoodsInProgress } />
         <Route path="/drinks/:id/in-progress" component={ DrinksInProgress } />
         <Route exact path="/profile" component={ Profile } />
