@@ -27,20 +27,40 @@ function RecipeDetails(props) {
   }, [pathname, id, props, setDetail]);
 
   return (
-    <div>
-      <img
-        src={ details?.meals[0].strMealThumb }
-        alt="detail"
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-title">{ details?.meals[0].strMeal }</p>
-      <p data-testid="recipe-category">
-        { details?.meals[0].strCategory }
-      </p>
-      <p data-testid="instructions">
-        { details?.meals[0].strInstructions }
-      </p>
-    </div>
+    <>
+      {pathname.includes('foods')
+    && (
+      <div>
+        <img
+          src={ details?.meals[0].strMealThumb }
+          alt="detail"
+          data-testid="recipe-photo"
+        />
+        <p data-testid="recipe-title">{ details?.meals[0].strMeal }</p>
+        <p data-testid="recipe-category">
+          { details?.meals[0].strCategory }
+        </p>
+        <p data-testid="instructions">
+          { details?.meals[0].strInstructions }
+        </p>
+      </div>)}
+      {pathname.includes('drinks')
+    && (
+      <div>
+        <img
+          src={ details?.drinks[0].strDrinkThumb }
+          alt="detail"
+          data-testid="recipe-photo"
+        />
+        <p data-testid="recipe-title">{ details?.drinks[0].strDrink }</p>
+        <p data-testid="recipe-category">
+          { details?.drinks[0].strCategory }
+        </p>
+        <p data-testid="instructions">
+          { details?.drinks[0].strInstructions }
+        </p>
+      </div>)}
+    </>
   );
 }
 
