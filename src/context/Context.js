@@ -20,6 +20,7 @@ function Provider({ children }) {
   const [userEmail, setUserEmail] = useState('');
   const [categoryMeal, setCategoryMeal] = useState();
   const [categoryDrink, setCategoryDrink] = useState();
+  const [details, setDetail] = useState();
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginState((old) => ({ ...old, [name]: value }));
@@ -74,6 +75,8 @@ function Provider({ children }) {
     setLoginState,
     categoryDrink,
     categoryMeal,
+    setDetail,
+    details,
   };
   return (
     <Context.Provider value={ contextValue }>

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { requestFoodDetails, requestDrinkDetails } from '../endPoints/requestAPI';
+import { Context } from '../context/Context';
 
 function RecipeDetails(props) {
   const history = useHistory();
@@ -9,21 +10,37 @@ function RecipeDetails(props) {
     location: { pathname },
   } = history;
   const { match: { params: { id } } } = props;
+  const { setDetail, details } = useContext(Context);
 
   useEffect(() => {
     const Details = async () => {
       if (pathname.includes('/foods')) {
-        await requestFoodDetails(id);
+        const meal = await requestFoodDetails(id);
+        setDetail(meal);
       }
       if (pathname.includes('/drinks')) {
-        await requestDrinkDetails(id);
+        const drink = await requestDrinkDetails(id);
+        setDetail(drink);
       }
     };
     Details();
-  }, [pathname, id, props]);
+  }, [pathname, id, props, setDetail]);
 
   return (
-    <h1>Foods Id</h1>
+    <div>
+      <img
+        src={ details?.meals[0].strMealThumb }
+        alt="detail"
+        data-testid="recipe-photo"
+      />
+      <p data-testid="recipe-title">{ details?.meals[0].strMeal }</p>
+      <p data-testid="recipe-category">
+        { details?.meals[0].strCategory }
+      </p>
+      <p data-testid="instructions">
+        { details?.meals[0].strInstructions }
+      </p>
+    </div>
   );
 }
 
