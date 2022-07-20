@@ -1,20 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/Context';
+import {
+  requestAllDrinks,
+  requestAllFoods,
+  requestCategoryDrink,
+  requestCategoryFoods,
+  requestFoodButton,
+  requestDrinkButton,
+} from '../endPoints/requestAPI';
 import RecipeCard from './RecipeCard';
-import { requestFoodButton, requestDrinkButton,
-  requestAllFoods, requestAllDrinks } from '../endPoints/requestAPI';
 
 function Recipes() {
-  const { responseFood, responseDrink,
-    categoryMeal, categoryDrink,
-    setResponseFood, setResponseDrink } = useContext(Context);
+  const {
+    responseFood,
+    responseDrink,
+    categoryMeal,
+    categoryDrink,
+    setCategoryDrink,
+    setCategoryMeal,
+    setResponseFood,
+    setResponseDrink,
+  } = useContext(Context);
   const history = useHistory();
   const {
     location: { pathname },
   } = history;
   const twelve = 12;
   const five = 5;
+
+  useEffect(() => {
+    const requestCategories = async () => {
+      const meal = await requestCategoryFoods();
+      setCategoryMeal(meal);
+      const drink = await requestCategoryDrink();
+      setCategoryDrink(drink);
+    };
+    requestCategories();
+  }, [setCategoryDrink, setCategoryMeal]);
+
+  useEffect(() => {
+    const ReqAPI = async () => {
+      const responseMeal = await requestAllFoods();
+      setResponseFood(responseMeal);
+      const drinkResponse = await requestAllDrinks();
+      setResponseDrink(drinkResponse);
+    };
+    ReqAPI();
+  }, [setResponseDrink, setResponseFood]);
 
   const handleClick = async ({ target: { value } }) => {
     if (pathname === '/foods' && responseFood) {
@@ -76,19 +109,19 @@ function Recipes() {
             </button>
           ))}
         {pathname.endsWith('drinks') && categoryDrink
-          && categoryDrink.drinks.slice(0, five).map((item) => (
-            <button
-              key={ item.strCategory }
-              type="button"
-              value={ item.strCategory }
-              data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ handleClick }
-            >
-              {item.strCategory}
-              {''}
+&& categoryDrink.drinks.slice(0, five).map((item) => (
+  <button
+    key={ item.strCategory }
+    type="button"
+    value={ item.strCategory }
+    data-testid={ `${item.strCategory}-category-filter` }
+    onClick={ handleClick }
+  >
+    {item.strCategory}
+    {''}
 
-            </button>
-          ))}
+  </button>
+))}
       </header>
       <div>
         {pathname.endsWith('foods') && responseFood && responseFood.meals.slice(0, twelve)
@@ -103,16 +136,16 @@ function Recipes() {
             />
           ))}
         {pathname.endsWith('drinks') && responseDrink
-        && responseDrink.drinks.slice(0, twelve).map((e, index) => (
-          <RecipeCard
-            key={ index }
-            str={ e.strDrink }
-            strThumb={ e.strDrinkThumb }
-            index={ index }
-            href={ `/drinks/${e.idDrink}` }
-            id={ e.idDrink }
-          />
-        ))}
+&& responseDrink.drinks.slice(0, twelve).map((e, index) => (
+  <RecipeCard
+    key={ index }
+    str={ e.strDrink }
+    strThumb={ e.strDrinkThumb }
+    index={ index }
+    href={ `/drinks/${e.idDrink}` }
+    id={ e.idDrink }
+  />
+))}
       </div>
     </>
   );

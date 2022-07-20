@@ -7,13 +7,7 @@ import App from '../App';
 describe('testes do componente Header', () => {
   it('testa se o header possui um botão que redireciona para o profile', () => {
     const { history } = renderWithRouter(<App />);
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    history.push('/foods')
 
     const btn = screen.getByTestId(/profile-btn/i);
 
@@ -23,13 +17,7 @@ describe('testes do componente Header', () => {
 
   it('testa se ao clicar no ícone de seach o input aparece', () => {
     const {history} = renderWithRouter(<App/>)
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    history.push('/foods')
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
 
@@ -41,13 +29,7 @@ describe('testes do componente Header', () => {
 
   it('testa se ao clicar no ícone de seach o input aparece e se ao clicar novamente, desaparece', () => {
     const {history} = renderWithRouter(<App/>)
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    history.push('/foods')
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
 
@@ -63,13 +45,7 @@ describe('testes do componente Header', () => {
 
   it('testa se as demais paginas possuem seus respectivos titulos', () => {
     const {history} = renderWithRouter(<App/>)
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    history.push('/foods')
 
     const btn = screen.getByTestId(/profile-btn/i);
 
