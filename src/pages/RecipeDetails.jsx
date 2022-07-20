@@ -26,6 +26,10 @@ function RecipeDetails(props) {
     Details();
   }, [pathname, id, props, setDetail]);
 
+  const handleClick = () => {
+    history.push(`${id}/in-progress`);
+  };
+
   return (
     <>
       {pathname.includes('foods')
@@ -43,6 +47,14 @@ function RecipeDetails(props) {
         <p data-testid="instructions">
           { details?.meals[0].strInstructions }
         </p>
+        <button
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Start Recipe
+        </button>
       </div>)}
       {pathname.includes('drinks')
     && (
@@ -59,6 +71,14 @@ function RecipeDetails(props) {
         <p data-testid="instructions">
           { details?.drinks[0].strInstructions }
         </p>
+        <button
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Start Recipe
+        </button>
       </div>)}
     </>
   );
