@@ -17,13 +17,10 @@ function Recipes() {
   const five = 5;
 
   const handleClick = async ({ target: { value } }) => {
-    console.log(value);
     if (pathname === '/foods' && responseFood) {
       if (value === 'All') {
         const responseMeal = await requestAllFoods();
-        console.log(responseMeal);
         setResponseFood(responseMeal);
-        console.log('entrou');
       } else if (value === 'Goat') {
         setResponseFood({
           meals: [{
@@ -101,6 +98,7 @@ function Recipes() {
               str={ e.strMeal }
               strThumb={ e.strMealThumb }
               index={ index }
+              href={ `/foods/${e.idMeal}` }
             />
           ))}
         {pathname.endsWith('drinks') && responseDrink
@@ -110,6 +108,7 @@ function Recipes() {
             str={ e.strDrink }
             strThumb={ e.strDrinkThumb }
             index={ index }
+            href={ `/drinks/${e.idDrink}` }
           />
         ))}
       </div>
