@@ -8,11 +8,11 @@ import './Header.css';
 
 function Header() {
   const history = useHistory();
+  const { search, handleSearchChange } = useContext(Context);
   const {
     location: { pathname },
   } = history;
 
-  const { search, handleSearchChange } = useContext(Context);
   const [inputSearch, setInputSearch] = useState(false);
 
   return (
