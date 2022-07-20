@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import {
   requestAllDrinks, requestAllFoods, requestCategoryDrink,
-  requestCategoryFoods, requestDrinkButton, requestFoodButton,
+  requestCategoryFoods,
 } from '../endPoints/requestAPI';
 
 export const Context = createContext();
@@ -20,7 +20,6 @@ function Provider({ children }) {
   const [userEmail, setUserEmail] = useState('');
   const [categoryMeal, setCategoryMeal] = useState();
   const [categoryDrink, setCategoryDrink] = useState();
-  const [categoryButton, setCategoryButton] = useState('');
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginState((old) => ({ ...old, [name]: value }));
@@ -28,20 +27,6 @@ function Provider({ children }) {
   const handleSearchChange = ({ target: { value } }) => {
     setSearch(value);
   };
-
-  useEffect(() => {
-    const saveCategory = async () => {
-      if (pathname === '/foods') {
-        const apiFood = await requestFoodButton(categoryButton);
-        setResponseFood(apiFood);
-      }
-      if (pathname === '/drinks') {
-        const apiDrink = await requestDrinkButton(categoryButton);
-        setResponseDrink(apiDrink);
-      }
-    };
-    saveCategory();
-  }, [categoryButton, pathname]);
 
   useEffect(() => {
     const requestCategories = async () => {
@@ -89,8 +74,6 @@ function Provider({ children }) {
     setLoginState,
     categoryDrink,
     categoryMeal,
-    setCategoryButton,
-    categoryButton,
   };
   return (
     <Context.Provider value={ contextValue }>
