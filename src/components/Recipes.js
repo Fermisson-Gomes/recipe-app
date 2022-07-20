@@ -1,17 +1,56 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Context } from '../context/Context';
+import {
+  requestAllDrinks,
+  requestAllFoods,
+  requestCategoryDrink,
+  requestCategoryFoods,
+} from '../endPoints/requestAPI';
 import RecipeCard from './RecipeCard';
 
 function Recipes() {
-  const { responseFood, responseDrink,
-    categoryMeal, categoryDrink } = useContext(Context);
+  const {
+    responseFood,
+    responseDrink,
+    categoryMeal,
+    categoryDrink,
+    setCategoryDrink,
+    setCategoryMeal,
+    setResponseFood,
+    setResponseDrink,
+  } = useContext(Context);
   const history = useHistory();
   const {
     location: { pathname },
   } = history;
   const twelve = 12;
   const five = 5;
+
+  useEffect(() => {
+    const requestCategories = async () => {
+      const meal = await requestCategoryFoods();
+      // console.log(meal);
+      setCategoryMeal(meal);
+      const drink = await requestCategoryDrink();
+      // console.log(drink);
+      setCategoryDrink(drink);
+    };
+    requestCategories();
+  }, []);
+
+  useEffect(() => {
+    const ReqAPI = async () => {
+      const responseMeal = await requestAllFoods();
+      // console.log(responseMeal);
+      setResponseFood(responseMeal);
+      const drinkResponse = await requestAllDrinks();
+      // console.log(drinkResponse);
+      setResponseDrink(drinkResponse);
+    };
+    ReqAPI();
+  }, []);
+
   return (
     <>
       <header>

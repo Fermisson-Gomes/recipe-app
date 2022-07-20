@@ -3,18 +3,27 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import { drinkDataFirstLetter, drinkDataIngredient, drinkDataName } from './mocks/searchMocks';
+import { drinkData, drinkDataFirstLetter, drinkDataIngredient, drinkDataName } from './mocks/searchMocks';
+import { categoryDrinksMock } from './mocks/categoryMock';
 
 describe('testes do componente SearchBar', () => {
   it('testa se ao clicar no ícone de seach o input aparece', () => {
     renderWithRouter(<App/>)
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(categoryDrinksMock),
+    });
     const emailInput = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
+    
     userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
     userEvent.type(passwordInput, 'fermilson');
     userEvent.click(enterBtn);
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkData),
+    });
 
     const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
 
@@ -35,10 +44,18 @@ describe('testes do componente SearchBar', () => {
 
   it('testa se os radio inputs estão funcionando', () => {
     renderWithRouter(<App/>)
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(categoryDrinksMock),
+    });
     const emailInput = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkData),
+    });
+    
     userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
     userEvent.type(passwordInput, 'fermilson');
     userEvent.click(enterBtn);
@@ -71,82 +88,100 @@ describe('testes do componente SearchBar', () => {
   })
 
   it('testa se ao clicar no botão search com a opção ingredient selecionada é feita a requisição a API correta', async () => {
+    
+    renderWithRouter(<App/>)
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(categoryDrinksMock),
+    });
+    const emailInput = screen.getByTestId(/email-input/i);
+    const passwordInput = screen.getByTestId(/password-input/i);
+    const enterBtn = screen.getByTestId(/login-submit-btn/i);
+    
+    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
+    userEvent.type(passwordInput, 'fermilson');
+    userEvent.click(enterBtn);
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkData),
+    });
+    
+    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
+    
+    userEvent.click(drinksBtn);
+    
+    const searchBtn = screen.getByTestId(/search-top-btn/i);
+    
+    userEvent.click(searchBtn);
+    
+    const searchInput = screen.getByTestId(/search-input/i);
+    const ingredient = screen.getByTestId(/ingredient-search-radio/i);
+    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
+    
+    userEvent.type(searchInput, 'orange');
+    userEvent.click(ingredient);
+    userEvent.click(execSearchBtn);
+    
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(drinkDataIngredient),
     });
-
-    renderWithRouter(<App/>)
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
-
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-
-    userEvent.click(drinksBtn);
-
-    const searchBtn = screen.getByTestId(/search-top-btn/i);
-
-    userEvent.click(searchBtn);
-
-    const searchInput = screen.getByTestId(/search-input/i);
-    const ingredient = screen.getByTestId(/ingredient-search-radio/i);
-    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
-
-    userEvent.type(searchInput, 'orange');
-    userEvent.click(ingredient);
-    userEvent.click(execSearchBtn);
 
     // expect(global.fetch).toBeCalled();
     expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=orange');
   })
     
   it('testa se ao clicar no botão search com a opção name selecionada é feita a requisição a API correta', async () => {
+    
+    renderWithRouter(<App/>)
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(categoryDrinksMock),
+    });
+    const emailInput = screen.getByTestId(/email-input/i);
+    const passwordInput = screen.getByTestId(/password-input/i);
+    const enterBtn = screen.getByTestId(/login-submit-btn/i);
+    
+    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
+    userEvent.type(passwordInput, 'fermilson');
+    userEvent.click(enterBtn);
+    
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkData),
+    });
+    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
+    
+    userEvent.click(drinksBtn);
+    
+    const searchBtn = screen.getByTestId(/search-top-btn/i);
+    
+    userEvent.click(searchBtn);
+    
+    const searchInput = screen.getByTestId(/search-input/i);
+    const foodName = screen.getByTestId(/name-search-radio/i);
+    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
+    
+    userEvent.type(searchInput, 'orange');
+    userEvent.click(foodName);
+    userEvent.click(execSearchBtn);
+    
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(drinkDataName),
     });
-
-    renderWithRouter(<App/>)
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
-
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-
-    userEvent.click(drinksBtn);
-
-    const searchBtn = screen.getByTestId(/search-top-btn/i);
-
-    userEvent.click(searchBtn);
-
-    const searchInput = screen.getByTestId(/search-input/i);
-    const foodName = screen.getByTestId(/name-search-radio/i);
-    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
-
-    userEvent.type(searchInput, 'orange');
-    userEvent.click(foodName);
-    userEvent.click(execSearchBtn);
 
     // expect(global.fetch).toBeCalled();
     expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=orange');
   })
 
   it('testa se ao clicar no botão search com a opção name selecionada é feita a requisição a API correta', async () => {
+    
+    renderWithRouter(<App/>)
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkDataFirstLetter),
+      json: jest.fn().mockResolvedValue(categoryDrinksMock),
     });
-
-    renderWithRouter(<App/>)
     const emailInput = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterBtn = screen.getByTestId(/login-submit-btn/i);
@@ -154,7 +189,11 @@ describe('testes do componente SearchBar', () => {
     userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
     userEvent.type(passwordInput, 'fermilson');
     userEvent.click(enterBtn);
-
+    
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkData),
+    });
     const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
 
     userEvent.click(drinksBtn);
@@ -170,27 +209,42 @@ describe('testes do componente SearchBar', () => {
     userEvent.type(searchInput, 'q');
     userEvent.click(firstLetter);
     userEvent.click(execSearchBtn);
+    
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkDataFirstLetter),
+    });
 
     // expect(global.fetch).toBeCalled();
     expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=q');
   })
 
   it('testa se um alerta é disparado de uma pesquisa de primmeira letra for feita com mais de uma letra', () => {
-    global.alert = jest.fn();
     
     renderWithRouter(<App/>)
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(categoryDrinksMock),
+    });
+    
     const emailInput = screen.getByTestId(/email-input/i);
     const passwordInput = screen.getByTestId(/password-input/i);
     const enterBtn = screen.getByTestId(/login-submit-btn/i);
-
+    
     userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
     userEvent.type(passwordInput, 'fermilson');
     userEvent.click(enterBtn);
 
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinkData),
+    });
+    
     const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-
+    
     userEvent.click(drinksBtn);
-
+    
+    global.alert = jest.fn();
     const searchBtn = screen.getByTestId(/search-top-btn/i);
 
     userEvent.click(searchBtn);
