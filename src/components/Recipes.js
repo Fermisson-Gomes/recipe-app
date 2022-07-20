@@ -6,7 +6,9 @@ import {
   requestAllFoods,
   requestCategoryDrink,
   requestCategoryFoods,
-  requestFoodButton, requestDrinkButton } from '../endPoints/requestAPI';
+  requestFoodButton,
+  requestDrinkButton,
+} from '../endPoints/requestAPI';
 import RecipeCard from './RecipeCard';
 
 function Recipes() {
@@ -30,26 +32,22 @@ function Recipes() {
   useEffect(() => {
     const requestCategories = async () => {
       const meal = await requestCategoryFoods();
-      // console.log(meal);
       setCategoryMeal(meal);
       const drink = await requestCategoryDrink();
-      // console.log(drink);
       setCategoryDrink(drink);
     };
     requestCategories();
-  }, []);
+  }, [setCategoryDrink, setCategoryMeal]);
 
   useEffect(() => {
     const ReqAPI = async () => {
       const responseMeal = await requestAllFoods();
-      // console.log(responseMeal);
       setResponseFood(responseMeal);
       const drinkResponse = await requestAllDrinks();
-      // console.log(drinkResponse);
       setResponseDrink(drinkResponse);
     };
     ReqAPI();
-  }, []);
+  }, [setResponseDrink, setResponseFood]);
 
   const handleClick = async ({ target: { value } }) => {
     if (pathname === '/foods' && responseFood) {
@@ -111,19 +109,19 @@ function Recipes() {
             </button>
           ))}
         {pathname.endsWith('drinks') && categoryDrink
-          && categoryDrink.drinks.slice(0, five).map((item) => (
-            <button
-              key={ item.strCategory }
-              type="button"
-              value={ item.strCategory }
-              data-testid={ `${item.strCategory}-category-filter` }
-              onClick={ handleClick }
-            >
-              {item.strCategory}
-              {''}
+&& categoryDrink.drinks.slice(0, five).map((item) => (
+  <button
+    key={ item.strCategory }
+    type="button"
+    value={ item.strCategory }
+    data-testid={ `${item.strCategory}-category-filter` }
+    onClick={ handleClick }
+  >
+    {item.strCategory}
+    {''}
 
-            </button>
-          ))}
+  </button>
+))}
       </header>
       <div>
         {pathname.endsWith('foods') && responseFood && responseFood.meals.slice(0, twelve)
@@ -138,16 +136,16 @@ function Recipes() {
             />
           ))}
         {pathname.endsWith('drinks') && responseDrink
-        && responseDrink.drinks.slice(0, twelve).map((e, index) => (
-          <RecipeCard
-            key={ index }
-            str={ e.strDrink }
-            strThumb={ e.strDrinkThumb }
-            index={ index }
-            href={ `/drinks/${e.idDrink}` }
-            id={ e.idDrink }
-          />
-        ))}
+&& responseDrink.drinks.slice(0, twelve).map((e, index) => (
+  <RecipeCard
+    key={ index }
+    str={ e.strDrink }
+    strThumb={ e.strDrinkThumb }
+    index={ index }
+    href={ `/drinks/${e.idDrink}` }
+    id={ e.idDrink }
+  />
+))}
       </div>
     </>
   );
