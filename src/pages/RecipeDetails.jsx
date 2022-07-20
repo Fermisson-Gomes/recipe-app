@@ -43,6 +43,13 @@ function RecipeDetails(props) {
         <p data-testid="instructions">
           { details?.meals[0].strInstructions }
         </p>
+        <button
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          type="button"
+        >
+          Start Recipe
+        </button>
       </div>)}
       {pathname.includes('drinks')
     && (
@@ -59,6 +66,13 @@ function RecipeDetails(props) {
         <p data-testid="instructions">
           { details?.drinks[0].strInstructions }
         </p>
+        <button
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          type="button"
+        >
+          Start Recipe
+        </button>
       </div>)}
     </>
   );
