@@ -6,10 +6,8 @@ import {
   requestAllFoods,
   requestCategoryDrink,
   requestCategoryFoods,
-} from '../endPoints/requestAPI';
+  requestFoodButton, requestDrinkButton } from '../endPoints/requestAPI';
 import RecipeCard from './RecipeCard';
-import { requestFoodButton, requestDrinkButton,
-  requestAllFoods, requestAllDrinks } from '../endPoints/requestAPI';
 
 function Recipes() {
   const {
@@ -28,7 +26,6 @@ function Recipes() {
   } = history;
   const twelve = 12;
   const five = 5;
-
 
   useEffect(() => {
     const requestCategories = async () => {
@@ -88,7 +85,6 @@ function Recipes() {
       }
     }
   };
-
 
   return (
     <>

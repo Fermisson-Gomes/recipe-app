@@ -7,7 +7,6 @@ import { PropTypes } from 'prop-types';
 //   requestAllFoods,
 // } from '../endPoints/requestAPI';
 
-
 export const Context = createContext();
 function Provider({ children }) {
   const { push, location: { pathname } } = useHistory();
