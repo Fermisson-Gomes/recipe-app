@@ -26,6 +26,10 @@ function RecipeDetails(props) {
     Details();
   }, [pathname, id, props, setDetail]);
 
+  const handleClick = () => {
+    history.push(`${id}/in-progress`);
+  };
+
   return (
     <>
       {pathname.includes('foods')
@@ -47,6 +51,7 @@ function RecipeDetails(props) {
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
           type="button"
+          onClick={ handleClick }
         >
           Start Recipe
         </button>
@@ -70,6 +75,7 @@ function RecipeDetails(props) {
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
           type="button"
+          onClick={ handleClick }
         >
           Start Recipe
         </button>
