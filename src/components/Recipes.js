@@ -99,6 +99,7 @@ function Recipes() {
               strThumb={ e.strMealThumb }
               index={ index }
               href={ `/foods/${e.idMeal}` }
+              id={ e.idMeal }
             />
           ))}
         {pathname.endsWith('drinks') && responseDrink
@@ -109,6 +110,7 @@ function Recipes() {
             strThumb={ e.strDrinkThumb }
             index={ index }
             href={ `/drinks/${e.idDrink}` }
+            id={ e.idDrink }
           />
         ))}
       </div>
