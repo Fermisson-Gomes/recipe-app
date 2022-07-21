@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { requestFoodDetails, requestDrinkDetails } from '../endPoints/requestAPI';
+import { requestFoodDetails, requestDrinkDetails, requestAllFoods,
+  requestAllDrinks } from '../endPoints/requestAPI';
 import { Context } from '../context/Context';
 
 function RecipeDetails(props) {
@@ -10,8 +11,10 @@ function RecipeDetails(props) {
     location: { pathname },
   } = history;
   const { match: { params: { id } } } = props;
-  const { setDetail, details, setIngredient, ingredient,
-    setMeasure, measure } = useContext(Context);
+  const { setDetail, details, setIngredient, ingredient, setResponseDrink,
+    setMeasure, measure, setResponseFood, responseFood,
+    responseDrink } = useContext(Context);
+  const six = 6;
 
   useEffect(() => {
     const Details = async () => {
@@ -54,6 +57,16 @@ function RecipeDetails(props) {
     }
   }, [details, setIngredient, setMeasure, pathname]);
 
+  useEffect(() => {
+    const ReqAPI = async () => {
+      const responseMeal = await requestAllFoods();
+      setResponseFood(responseMeal);
+      const drinkResponse = await requestAllDrinks();
+      setResponseDrink(drinkResponse);
+    };
+    ReqAPI();
+  }, [setResponseDrink, setResponseFood]);
+
   return (
     <>
       {pathname.includes('foods')
@@ -93,6 +106,25 @@ function RecipeDetails(props) {
             </li>
           ))}
         </ul>
+        <div className="recomendation">
+          {responseDrink && responseDrink.drinks.sort().slice(0, six)
+            .map((item, index) => (
+              <a
+                data-testid={ `${index}-recomendation-card` }
+                href={ `/drinks/${index.idDrink}` }
+                key={ item.idDrink }
+              >
+                <img
+                  className="recomentadion-img"
+                  src={ item.strDrinkThumb }
+                  alt={ item.strDrink }
+                />
+                <p data-testid={ `${index}-recomendation-title` }>
+                  { index.strDrink }
+                </p>
+              </a>
+            ))}
+        </div>
       </div>)}
       {pathname.includes('drinks')
     && (
@@ -104,7 +136,7 @@ function RecipeDetails(props) {
         />
         <p data-testid="recipe-title">{ details?.drinks[0].strDrink }</p>
         <p data-testid="recipe-category">
-          { details?.drinks[0].strCategory }
+          { details?.drinks[0].strAlcoholic }
         </p>
         <p data-testid="instructions">
           { details?.drinks[0].strInstructions }
@@ -129,6 +161,25 @@ function RecipeDetails(props) {
             </li>
           ))}
         </ul>
+        <div className="recomentadion">
+          {responseFood && responseFood.meals.sort().slice(0, six)
+            .map((item, index) => (
+              <a
+                data-testid={ `${index}-recomendation-card` }
+                href={ `/drinks/${index.idMeal}` }
+                key={ item.idMeal }
+              >
+                <img
+                  src={ item.strMealThumb }
+                  alt={ item.strMeal }
+                  className="recomentadion-img"
+                />
+                <p data-testid={ `${index}-recomendation-title` }>
+                  { index.strMeal }
+                </p>
+              </a>
+            ))}
+        </div>
         <button
           data-testid="start-recipe-btn"
           className="start-recipe-btn"

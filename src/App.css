@@ -71,3 +71,12 @@
   bottom: 0;
   position: fixed;
 }
+
+.recomendation {
+  display: flex;
+  overflow-y: auto;
+}
+
+.recomendation-img {
+  width: 10rem;
+}
