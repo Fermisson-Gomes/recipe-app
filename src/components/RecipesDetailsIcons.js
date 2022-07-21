@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import heartIcon from '../images/whiteHeartIcon.svg';
 import heartBlackIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesDetailsIcons() {
+  const history = useHistory();
+  const {
+    location: { pathname },
+  } = history;
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
@@ -11,7 +17,7 @@ function RecipesDetailsIcons() {
 
       <button
         type="button"
-        onClick={ () => { } }
+        onClick={ () => { clipboardCopy(pathname); } }
       >
         <img
           src={ shareIcon }
