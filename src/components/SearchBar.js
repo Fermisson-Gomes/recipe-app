@@ -37,7 +37,7 @@ function SearchBar() {
         firstLetter: requestFirstLetterDrinks,
       };
       const response = await requests[optionValue](search);
-
+      // console.log(response);
       setResponseDrink(response);
     }
   };

@@ -17,6 +17,8 @@ function Provider({ children }) {
   const [categoryMeal, setCategoryMeal] = useState();
   const [categoryDrink, setCategoryDrink] = useState();
   const [details, setDetail] = useState();
+  const [ingredient, setIngredient] = useState();
+  const [measure, setMeasure] = useState();
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginState((old) => ({ ...old, [name]: value }));
@@ -51,13 +53,14 @@ function Provider({ children }) {
     setLoginState,
     categoryDrink,
     categoryMeal,
-
     setCategoryDrink,
     setCategoryMeal,
-
     setDetail,
     details,
-
+    setMeasure,
+    measure,
+    ingredient,
+    setIngredient,
   };
   return (
     <Context.Provider value={ contextValue }>
