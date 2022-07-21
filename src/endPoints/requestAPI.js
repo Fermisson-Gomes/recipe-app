@@ -33,7 +33,8 @@ export const requestFirstLetter = async (primeiraLetra) => {
 
 export const requestIngredientDrinks = async (ingrediente) => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
-  const data = await fetch(endpoint).then((resp) => resp.json());
+  const request = await fetch(endpoint);
+  const data = await request.json();
   if (data.drinks === null) {
     global.alert(alert);
     return null;

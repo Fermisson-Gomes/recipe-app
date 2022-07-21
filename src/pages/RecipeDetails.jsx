@@ -21,15 +21,17 @@ function RecipeDetails(props) {
     const Details = async () => {
       if (pathname.includes('/foods')) {
         const meal = await requestFoodDetails(id);
+        // console.log(meal);
         setDetail(meal);
       }
       if (pathname.includes('/drinks')) {
         const drink = await requestDrinkDetails(id);
+        // console.log(drink);
         setDetail(drink);
       }
     };
     Details();
-  }, [pathname, id, props, setDetail]);
+  }, []);
 
   const handleClick = () => {
     history.push(`${id}/in-progress`);
@@ -205,7 +207,11 @@ function RecipeDetails(props) {
 }
 
 RecipeDetails.propTypes = {
-  match: PropTypes.objectOf.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default RecipeDetails;

@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function RecipeCard(props) {
   const { str, strThumb, index, href, id } = props;
+  // console.log(id);
   return (
-    <a
+    <Link
       data-testid={ `${index}-recipe-card` }
-      href={ href }
-      id={ id }
+      to={ href }
+      state={ id }
     >
       <p data-testid={ `${index}-card-name` }>
         { str }
@@ -18,7 +20,7 @@ function RecipeCard(props) {
         alt={ str }
 
       />
-    </a>
+    </Link>
   );
 }
 

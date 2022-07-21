@@ -31,6 +31,7 @@ function SearchBar() {
       setResponseFood(response);
     }
     if (pathname === '/drinks') {
+      // console.log(search);
       const requests = {
         ingredient: requestIngredientDrinks,
         foodName: requestDrinkName,

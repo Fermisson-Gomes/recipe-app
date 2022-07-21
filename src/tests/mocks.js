@@ -1,7 +1,11 @@
 const {
   categoryFoodsMock,
   categoryDrinksMock,
+  categoryFoodBreakfast,
+  categoryDrinkCocoa,
+  categoryFoodGoat,
 } = require("./mocks/categoryMock");
+const { recipeONE, drinkRecipeONE } = require("./mocks/RecipeMock");
 const {
   foodDataIngredient,
   drinkDataIngredient,
@@ -46,10 +50,12 @@ const fetch = (url) => Promise.resolve({
     if (
       url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata' ||
       url === 'https://www.themealdb.com/api/json/v1/1/random.php' ||
-      url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771' ||
-      url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977'
+      url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771'
     )
       return Promise.resolve(foodDataOneRecipe);
+
+    if (url === 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52977')
+      return Promise.resolve(recipeONE);
 
     if (
       url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Aquamarine' ||
@@ -58,8 +64,8 @@ const fetch = (url) => Promise.resolve({
     )
       return Promise.resolve(drinkDataOneRecipe);
 
-    // if (url === 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=15997')
-    //   return Promise.resolve(oneDrinkId15997);
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=17222')
+      return Promise.resolve(drinkRecipeONE);
 
     // if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=soup')
     //   return Promise.resolve(soupMeals);
@@ -67,8 +73,8 @@ const fetch = (url) => Promise.resolve({
     // if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef')
     //   return Promise.resolve(beefMeals);
 
-    // if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast')
-    //   return Promise.resolve(breakfastMeals);
+    if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Breakfast')
+      return Promise.resolve(categoryFoodBreakfast);
 
     // if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Chicken')
     //   return Promise.resolve(chickenMeals);
@@ -76,8 +82,8 @@ const fetch = (url) => Promise.resolve({
     // if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert')
     //   return Promise.resolve(dessertMeals);
 
-    // if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Goat')
-    //   return Promise.resolve(goatMeals);
+    if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Goat')
+      return Promise.resolve(categoryFoodGoat);
 
     // if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=xablau')
     //   return Promise.resolve(emptyMeals);
@@ -97,8 +103,8 @@ const fetch = (url) => Promise.resolve({
     // if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Other/Unknown')
     //   return Promise.resolve(otherDrinks);
 
-    // if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa')
-    //   return Promise.resolve(cocoaDrinks);
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocoa')
+      return Promise.resolve(categoryDrinkCocoa);
 
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=vassoura'
     || url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=vassoura')
