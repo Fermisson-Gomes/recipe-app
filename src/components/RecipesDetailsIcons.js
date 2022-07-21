@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import heartIcon from '../images/whiteHeartIcon.svg';
-import heartBlackIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import { Context } from '../context/Context';
 
@@ -25,7 +25,7 @@ function RecipesDetailsIcons() {
     }, twoSec);
   };
 
-  const handleClickFavorite = () => {
+  const handleClickFavoriteFood = () => {
     const detailsMeal = {
       id: details.meals[0].idMeal,
       type: 'meal',
@@ -56,6 +56,36 @@ function RecipesDetailsIcons() {
     }
   };
 
+  const handleClickFavoriteDrink = () => {
+    const detailsDrink = {
+      id: details.drinks[0].idDrink,
+      type: 'drink',
+      nationality: '',
+      category: details.drinks[0].strCategory,
+      alcoholicOrNot: details.drinks[0].strAlcoholic,
+      name: details.drinks[0].strDrink,
+      image: details.drinks[0].strDrinkThumb,
+    };
+    const getItemLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (isFavorite === false) {
+      setIsFavorite(true);
+      if (getItemLocalStorage === null) {
+        const setToLocalStorage = [detailsDrink];
+        localStorage.setItem('favoriteRecipes', JSON.stringify(setToLocalStorage));
+      } else {
+        const favoriteObj = [...getItemLocalStorage, detailsDrink];
+        localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteObj));
+      }
+    }
+    if (isFavorite) {
+      setIsFavorite(false);
+      const removedFavorite = getItemLocalStorage.filter((item) => item
+        .id !== detailsDrink.id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(removedFavorite));
+    }
+  };
+
   return (
     <div>
       <button
@@ -68,23 +98,44 @@ function RecipesDetailsIcons() {
           data-testid="share-btn"
         />
       </button>
-      <button
-        type="button"
-        onClick={ handleClickFavorite }
-      >
-        {isFavorite ? (
-          <img
-            src={ heartBlackIcon }
-            alt="heart-icon"
-            data-testid="favorite-btn"
-          />)
-          : (
+      {pathname.includes('foods')
+      && (
+        <button
+          type="button"
+          onClick={ handleClickFavoriteFood }
+        >
+          {isFavorite ? (
             <img
-              src={ heartIcon }
+              src={ blackHeartIcon }
               alt="heart-icon"
               data-testid="favorite-btn"
-            />)}
-      </button>
+            />)
+            : (
+              <img
+                src={ heartIcon }
+                alt="heart-icon"
+                data-testid="favorite-btn"
+              />)}
+        </button>)}
+      {pathname.includes('drinks')
+      && (
+        <button
+          type="button"
+          onClick={ handleClickFavoriteDrink }
+        >
+          {isFavorite ? (
+            <img
+              src={ blackHeartIcon }
+              alt="heart-icon"
+              data-testid="favorite-btn"
+            />)
+            : (
+              <img
+                src={ heartIcon }
+                alt="heart-icon"
+                data-testid="favorite-btn"
+              />)}
+        </button>)}
       {clickedMessage && <span>Link copied!</span>}
     </div>
   );
