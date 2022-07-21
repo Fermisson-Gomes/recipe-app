@@ -115,16 +115,24 @@ function RecipeDetails(props) {
                 key={ item.idDrink }
               >
                 <img
-                  className="recomentadion-img"
+                  className="recomendation-img"
                   src={ item.strDrinkThumb }
                   alt={ item.strDrink }
                 />
                 <p data-testid={ `${index}-recomendation-title` }>
-                  { index.strDrink }
+                  { item.strDrink }
                 </p>
               </a>
             ))}
         </div>
+        <button
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Start Recipe
+        </button>
       </div>)}
       {pathname.includes('drinks')
     && (
@@ -161,7 +169,7 @@ function RecipeDetails(props) {
             </li>
           ))}
         </ul>
-        <div className="recomentadion">
+        <div className="recomendation">
           {responseFood && responseFood.meals.sort().slice(0, six)
             .map((item, index) => (
               <a
@@ -172,10 +180,10 @@ function RecipeDetails(props) {
                 <img
                   src={ item.strMealThumb }
                   alt={ item.strMeal }
-                  className="recomentadion-img"
+                  className="recomendation-img"
                 />
                 <p data-testid={ `${index}-recomendation-title` }>
-                  { index.strMeal }
+                  { item.strMeal }
                 </p>
               </a>
             ))}
@@ -188,7 +196,6 @@ function RecipeDetails(props) {
         >
           Start Recipe
         </button>
-
       </div>)}
     </>
   );
