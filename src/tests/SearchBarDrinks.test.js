@@ -1,33 +1,14 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import { drinkData, drinkDataFirstLetter, drinkDataIngredient, drinkDataName } from './mocks/searchMocks';
-import { categoryDrinksMock } from './mocks/categoryMock';
 
 describe('testes do componente SearchBar', () => {
   it('testa se ao clicar no ícone de seach o input aparece', () => {
-    renderWithRouter(<App/>)
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(categoryDrinksMock),
-    });
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-    
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkData),
-    });
+    const {history} = renderWithRouter(<App/>)
 
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-
-    userEvent.click(drinksBtn);
+    history.push('/drinks');
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
 
@@ -43,26 +24,9 @@ describe('testes do componente SearchBar', () => {
   });
 
   it('testa se os radio inputs estão funcionando', () => {
-    renderWithRouter(<App/>)
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(categoryDrinksMock),
-    });
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkData),
-    });
-    
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    const {history} = renderWithRouter(<App/>)
 
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-
-    userEvent.click(drinksBtn);
+    history.push('/drinks');
 
     const searchBtn = screen.getByTestId(/search-top-btn/i);
 
@@ -87,162 +51,78 @@ describe('testes do componente SearchBar', () => {
     expect(foodName).toHaveProperty('checked');
   })
 
-  it('testa se ao clicar no botão search com a opção ingredient selecionada é feita a requisição a API correta', async () => {
+  it('testa se ao clicar no botão search com a opção ingredient selecionada o filtro funciona', async () => {
     
-    renderWithRouter(<App/>)
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(categoryDrinksMock),
-    });
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
+    const {history} = renderWithRouter(<App/>)
+
+    history.push('/drinks');
     
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkData),
-    });
-    
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-    
-    userEvent.click(drinksBtn);
-    
-    const searchBtn = screen.getByTestId(/search-top-btn/i);
+    const searchBtn = await screen.findByTestId(/search-top-btn/i);
     
     userEvent.click(searchBtn);
     
-    const searchInput = screen.getByTestId(/search-input/i);
-    const ingredient = screen.getByTestId(/ingredient-search-radio/i);
-    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
+    const searchInput = await screen.findByTestId(/search-input/i);
+    const ingredient = await screen.findByTestId(/ingredient-search-radio/i);
+    const execSearchBtn = await screen.findByTestId(/exec-search-btn/i);
     
     userEvent.type(searchInput, 'orange');
     userEvent.click(ingredient);
     userEvent.click(execSearchBtn);
-    
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkDataIngredient),
-    });
 
-    // expect(global.fetch).toBeCalled();
-    expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=orange');
-  })
+    const name = await screen.findByText(/abbey cocktail/i)
+
+    expect(name).toBeInTheDocument();
     
-  it('testa se ao clicar no botão search com a opção name selecionada é feita a requisição a API correta', async () => {
+     })
     
-    renderWithRouter(<App/>)
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(categoryDrinksMock),
-    });
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
+  it('testa se ao clicar no botão search com a opção name selecionada o filtro funciona', async () => {
     
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    const {history} = renderWithRouter(<App/>)
+
+    history.push('/drinks');
     
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkData),
-    });
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-    
-    userEvent.click(drinksBtn);
-    
-    const searchBtn = screen.getByTestId(/search-top-btn/i);
+    const searchBtn = await screen.findByTestId(/search-top-btn/i);
     
     userEvent.click(searchBtn);
     
-    const searchInput = screen.getByTestId(/search-input/i);
-    const foodName = screen.getByTestId(/name-search-radio/i);
-    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
+    const searchInput = await screen.findByTestId(/search-input/i);
+    const foodName = await screen.findByTestId(/name-search-radio/i);
+    const execSearchBtn = await screen.findByTestId(/exec-search-btn/i);
     
     userEvent.type(searchInput, 'orange');
     userEvent.click(foodName);
     userEvent.click(execSearchBtn);
     
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkDataName),
-    });
-
-    // expect(global.fetch).toBeCalled();
-    expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=orange');
-  })
+    expect(await screen.findByText(/orangeade/i)).toBeInTheDocument();
+   })
 
   it('testa se ao clicar no botão search com a opção name selecionada é feita a requisição a API correta', async () => {
     
-    renderWithRouter(<App/>)
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(categoryDrinksMock),
-    });
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
+    const {history} = renderWithRouter(<App/>)
 
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    history.push('/drinks');
     
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkData),
-    });
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-
-    userEvent.click(drinksBtn);
-
-    const searchBtn = screen.getByTestId(/search-top-btn/i);
+    const searchBtn = await screen.findByTestId(/search-top-btn/i);
 
     userEvent.click(searchBtn);
 
-    const searchInput = screen.getByTestId(/search-input/i);
-    const firstLetter = screen.getByTestId(/first-letter-search-radio/i);
-    const execSearchBtn = screen.getByTestId(/exec-search-btn/i);
+    const searchInput = await screen.findByTestId(/search-input/i);
+    const firstLetter = await screen.findByTestId(/first-letter-search-radio/i);
+    const execSearchBtn = await screen.findByTestId(/exec-search-btn/i);
 
     userEvent.type(searchInput, 'q');
     userEvent.click(firstLetter);
     userEvent.click(execSearchBtn);
-    
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkDataFirstLetter),
-    });
 
-    // expect(global.fetch).toBeCalled();
-    expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=q');
+    expect(await screen.findByText(/quentin/i)).toBeInTheDocument();
+    
   })
 
   it('testa se um alerta é disparado de uma pesquisa de primmeira letra for feita com mais de uma letra', () => {
     
-    renderWithRouter(<App/>)
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(categoryDrinksMock),
-    });
-    
-    const emailInput = screen.getByTestId(/email-input/i);
-    const passwordInput = screen.getByTestId(/password-input/i);
-    const enterBtn = screen.getByTestId(/login-submit-btn/i);
-    
-    userEvent.type(emailInput, 'fermilson.gomes@gmail.com');
-    userEvent.type(passwordInput, 'fermilson');
-    userEvent.click(enterBtn);
+    const {history} = renderWithRouter(<App/>)
 
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(drinkData),
-    });
-    
-    const drinksBtn = screen.getByTestId(/drinks-bottom-btn/i);
-    
-    userEvent.click(drinksBtn);
+    history.push('/drinks');
     
     global.alert = jest.fn();
     const searchBtn = screen.getByTestId(/search-top-btn/i);
@@ -259,5 +139,48 @@ describe('testes do componente SearchBar', () => {
 
     expect(global.alert).toBeCalled();
 
+  })
+
+  it('testa se caso não existam receitas com o ingrediente um alerta é disparado', async () => {
+    
+    const {history} = renderWithRouter(<App/>)
+
+    history.push('/drinks')
+
+    const searchBtn = await screen.findByTestId(/search-top-btn/i);
+
+    userEvent.click(searchBtn);
+
+    const searchInput = await screen.findByTestId(/search-input/i);
+    const name = await screen.findByTestId(/name-search-radio/i);
+    const execSearchBtn = await screen.findByTestId(/exec-search-btn/i);
+
+    userEvent.type(searchInput, 'vassoura');
+    userEvent.click(name);
+    userEvent.click(execSearchBtn);
+
+    await waitFor(() => {expect(global.alert).toBeCalled();});
+  })
+
+  it('testa se caso venha apenas uma receita é redirecionado para a pagina de detalhes', async () => {
+    const {history} = renderWithRouter(<App/>)
+
+    history.push('/drinks')
+
+    const searchBtn = await screen.findByTestId(/search-top-btn/i);
+
+    userEvent.click(searchBtn);
+
+    const searchInput = await screen.findByTestId(/search-input/i);
+    const name = await screen.findByTestId(/name-search-radio/i);
+    const execSearchBtn = await screen.findByTestId(/exec-search-btn/i);
+
+    userEvent.type(searchInput, 'Aquamarine');
+    userEvent.click(name);
+    userEvent.click(execSearchBtn);
+
+    const title = await screen.findByTestId(/recipe-title/i);
+
+    await waitFor(() => {expect(title).toBeInTheDocument();});
   })
 });

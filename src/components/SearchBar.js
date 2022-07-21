@@ -31,13 +31,14 @@ function SearchBar() {
       setResponseFood(response);
     }
     if (pathname === '/drinks') {
+      // console.log(search);
       const requests = {
         ingredient: requestIngredientDrinks,
         foodName: requestDrinkName,
         firstLetter: requestFirstLetterDrinks,
       };
       const response = await requests[optionValue](search);
-
+      // console.log(response);
       setResponseDrink(response);
     }
   };

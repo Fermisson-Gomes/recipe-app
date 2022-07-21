@@ -37,7 +37,7 @@ function Recipes() {
       setCategoryDrink(drink);
     };
     requestCategories();
-  }, [setCategoryDrink, setCategoryMeal]);
+  }, []);
 
   useEffect(() => {
     const ReqAPI = async () => {
@@ -47,10 +47,10 @@ function Recipes() {
       setResponseDrink(drinkResponse);
     };
     ReqAPI();
-  }, [setResponseDrink, setResponseFood]);
+  }, []);
 
   const handleClick = async ({ target: { value } }) => {
-    if (pathname === '/foods' && responseFood) {
+    if (pathname === '/foods' && categoryMeal) {
       if (value === 'All') {
         const responseMeal = await requestAllFoods();
         setResponseFood(responseMeal);
@@ -64,21 +64,23 @@ function Recipes() {
           {
             idMeal: '',
             strMeal: '',
-            strThumbMeal: '',
+            strMealThumb: '',
           },
           ] });
       } else {
         const apiFood = await requestFoodButton(value);
+        // console.log(apiFood);
         setResponseFood(apiFood);
       }
     }
 
-    if (pathname === '/drinks' && responseDrink) {
+    if (pathname === '/drinks' && categoryDrink) {
       if (value === 'All') {
         const drinkResponse = await requestAllDrinks();
         setResponseDrink(drinkResponse);
       } else {
         const apiDrink = await requestDrinkButton(value);
+        // console.log(apiDrink);
         setResponseDrink(apiDrink);
       }
     }
