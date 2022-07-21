@@ -32,7 +32,7 @@ function RecipesDetailsIcons() {
         setIsFavorite(true);
       }
     }
-  }, [setIsFavorite, details, pathname]);
+  }, []);
 
   const handleClickShare = () => {
     const url = `http://localhost:3000${pathname}`;
