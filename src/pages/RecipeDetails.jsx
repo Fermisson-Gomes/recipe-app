@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { requestFoodDetails, requestDrinkDetails, requestAllFoods,
   requestAllDrinks } from '../endPoints/requestAPI';
 import { Context } from '../context/Context';
+import RecipesDetailsIcons from '../components/RecipesDetailsIcons';
 
 function RecipeDetails(props) {
   const history = useHistory();
@@ -81,6 +82,7 @@ function RecipeDetails(props) {
         <p data-testid="recipe-category">
           { details?.meals[0].strCategory }
         </p>
+        <RecipesDetailsIcons />
         <p data-testid="instructions">
           { details?.meals[0].strInstructions }
         </p>
@@ -146,6 +148,7 @@ function RecipeDetails(props) {
         <p data-testid="recipe-category">
           { details?.drinks[0].strAlcoholic }
         </p>
+        <RecipesDetailsIcons />
         <p data-testid="instructions">
           { details?.drinks[0].strInstructions }
         </p>
