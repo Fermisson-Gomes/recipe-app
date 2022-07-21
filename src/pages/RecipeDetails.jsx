@@ -32,7 +32,7 @@ function RecipeDetails(props) {
   };
 
   useEffect(() => {
-    if (details) {
+    if (details && pathname.includes('foods')) {
       const ingredients = Object.entries(details?.meals[0])
         .filter((item) => item[0].includes('strIngredient'));
       const secondElementIng = ingredients.map((item) => item[1]);
@@ -42,7 +42,17 @@ function RecipeDetails(props) {
       const secondElementMea = measures.map((item) => item[1]);
       setMeasure(secondElementMea);
     }
-  }, [details, setIngredient, setMeasure]);
+    if (details && pathname.includes('/drinks')) {
+      const ingredients = Object.entries(details?.drinks[0])
+        .filter((item) => item[0].includes('strIngredient'));
+      const secondElementIng = ingredients.map((item) => item[1]);
+      setIngredient(secondElementIng);
+      const measures = Object.entries(details?.drinks[0])
+        .filter((item) => item[0].includes('strMeasure'));
+      const secondElementMea = measures.map((item) => item[1]);
+      setMeasure(secondElementMea);
+    }
+  }, [details, setIngredient, setMeasure, pathname]);
 
   return (
     <>
@@ -99,6 +109,26 @@ function RecipeDetails(props) {
         <p data-testid="instructions">
           { details?.drinks[0].strInstructions }
         </p>
+        <ul>
+          {measure && measure.map((item, index) => (
+            <li
+              name="drinks"
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              { item }
+            </li>
+          ))}
+          {ingredient && ingredient.map((item, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              name="drinks"
+              key={ item }
+            >
+              { item }
+            </li>
+          ))}
+        </ul>
         <button
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
