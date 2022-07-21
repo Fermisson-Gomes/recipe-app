@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import heartIcon from '../images/whiteHeartIcon.svg';
+import heartBlackIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function RecipesDetailsIcons() {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   return (
     <div>
 
@@ -18,13 +21,20 @@ function RecipesDetailsIcons() {
       </button>
       <button
         type="button"
-        onClick={ () => { } }
+        onClick={ () => { setIsFavorite(!isFavorite); } }
       >
-        <img
-          src={ heartIcon }
-          alt="heart-icon"
-          data-testid="favorite-btn"
-        />
+        {isFavorite ? (
+          <img
+            src={ heartBlackIcon }
+            alt="heart-icon"
+            data-testid="favorite-btn"
+          />)
+          : (
+            <img
+              src={ heartIcon }
+              alt="heart-icon"
+              data-testid="favorite-btn"
+            />)}
       </button>
     </div>
   );
