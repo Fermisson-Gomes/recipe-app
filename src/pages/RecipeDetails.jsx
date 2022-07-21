@@ -110,7 +110,7 @@ function RecipeDetails(props) {
             .map((item, index) => (
               <a
                 data-testid={ `${index}-recomendation-card` }
-                href={ `/drinks/${index.idDrink}` }
+                href={ `/drinks/${item.idDrink}` }
                 key={ item.idDrink }
               >
                 <img
@@ -167,7 +167,7 @@ function RecipeDetails(props) {
             .map((item, index) => (
               <a
                 data-testid={ `${index}-recomendation-card` }
-                href={ `/drinks/${index.idMeal}` }
+                href={ `/foods/${item.idMeal}` }
                 key={ item.idMeal }
               >
                 <img
