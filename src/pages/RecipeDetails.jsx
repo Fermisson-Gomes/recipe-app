@@ -5,6 +5,7 @@ import { requestFoodDetails, requestDrinkDetails, requestAllFoods,
   requestAllDrinks } from '../endPoints/requestAPI';
 import { Context } from '../context/Context';
 import RecipesDetailsIcons from '../components/RecipesDetailsIcons';
+import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
 function RecipeDetails(props) {
   const history = useHistory();
@@ -30,10 +31,6 @@ function RecipeDetails(props) {
     };
     Details();
   }, [pathname, id, props, setDetail]);
-
-  const handleClick = () => {
-    history.push(`${id}/in-progress`);
-  };
 
   useEffect(() => {
     if (details && pathname.includes('foods')) {
@@ -127,14 +124,7 @@ function RecipeDetails(props) {
               </a>
             ))}
         </div>
-        <button
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          type="button"
-          onClick={ handleClick }
-        >
-          Start Recipe
-        </button>
+        <ButtonStartRecipe id={ id } />
       </div>)}
       {pathname.includes('drinks')
     && (
@@ -191,14 +181,7 @@ function RecipeDetails(props) {
               </a>
             ))}
         </div>
-        <button
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-          type="button"
-          onClick={ handleClick }
-        >
-          Start Recipe
-        </button>
+        <ButtonStartRecipe id={ id } />
       </div>)}
     </>
   );

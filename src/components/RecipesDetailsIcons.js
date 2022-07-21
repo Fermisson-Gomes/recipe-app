@@ -11,13 +11,23 @@ function RecipesDetailsIcons() {
     location: { pathname },
   } = history;
   const [isFavorite, setIsFavorite] = useState(false);
+  const [clickedMessage, setClickMessage] = useState();
+
+  const handleClick = () => {
+    const url = `http://localhost:3000${pathname}`;
+    const twoSec = 2000;
+    clipboardCopy(url);
+    setClickMessage(true);
+    setTimeout(() => {
+      setClickMessage(false);
+    }, twoSec);
+  };
 
   return (
     <div>
-
       <button
         type="button"
-        onClick={ () => { clipboardCopy(pathname); } }
+        onClick={ handleClick }
       >
         <img
           src={ shareIcon }
@@ -42,6 +52,7 @@ function RecipesDetailsIcons() {
               data-testid="favorite-btn"
             />)}
       </button>
+      {clickedMessage && <span>Link copied!</span>}
     </div>
   );
 }
