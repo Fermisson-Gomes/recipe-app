@@ -1,8 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { requestFoodDetails, requestDrinkDetails } from '../endPoints/requestAPI';
+import { requestFoodDetails, requestDrinkDetails, requestAllFoods,
+  requestAllDrinks } from '../endPoints/requestAPI';
 import { Context } from '../context/Context';
+import RecipesDetailsIcons from '../components/RecipesDetailsIcons';
 
 function RecipeDetails(props) {
   const history = useHistory();
@@ -10,8 +12,10 @@ function RecipeDetails(props) {
     location: { pathname },
   } = history;
   const { match: { params: { id } } } = props;
-  const { setDetail, details, setIngredient, ingredient,
-    setMeasure, measure } = useContext(Context);
+  const { setDetail, details, setIngredient, ingredient, setResponseDrink,
+    setMeasure, measure, setResponseFood, responseFood,
+    responseDrink } = useContext(Context);
+  const six = 6;
 
   useEffect(() => {
     const Details = async () => {
@@ -32,7 +36,7 @@ function RecipeDetails(props) {
   };
 
   useEffect(() => {
-    if (details) {
+    if (details && pathname.includes('foods')) {
       const ingredients = Object.entries(details?.meals[0])
         .filter((item) => item[0].includes('strIngredient'));
       const secondElementIng = ingredients.map((item) => item[1]);
@@ -42,7 +46,27 @@ function RecipeDetails(props) {
       const secondElementMea = measures.map((item) => item[1]);
       setMeasure(secondElementMea);
     }
-  }, [details, setIngredient, setMeasure]);
+    if (details && pathname.includes('/drinks')) {
+      const ingredients = Object.entries(details?.drinks[0])
+        .filter((item) => item[0].includes('strIngredient'));
+      const secondElementIng = ingredients.map((item) => item[1]);
+      setIngredient(secondElementIng);
+      const measures = Object.entries(details?.drinks[0])
+        .filter((item) => item[0].includes('strMeasure'));
+      const secondElementMea = measures.map((item) => item[1]);
+      setMeasure(secondElementMea);
+    }
+  }, [details, setIngredient, setMeasure, pathname]);
+
+  useEffect(() => {
+    const ReqAPI = async () => {
+      const responseMeal = await requestAllFoods();
+      setResponseFood(responseMeal);
+      const drinkResponse = await requestAllDrinks();
+      setResponseDrink(drinkResponse);
+    };
+    ReqAPI();
+  }, [setResponseDrink, setResponseFood]);
 
   return (
     <>
@@ -58,6 +82,7 @@ function RecipeDetails(props) {
         <p data-testid="recipe-category">
           { details?.meals[0].strCategory }
         </p>
+        <RecipesDetailsIcons />
         <p data-testid="instructions">
           { details?.meals[0].strInstructions }
         </p>
@@ -83,6 +108,33 @@ function RecipeDetails(props) {
             </li>
           ))}
         </ul>
+        <div className="recomendation">
+          {responseDrink && responseDrink.drinks.sort().slice(0, six)
+            .map((item, index) => (
+              <a
+                data-testid={ `${index}-recomendation-card` }
+                href={ `/drinks/${index.idDrink}` }
+                key={ item.idDrink }
+              >
+                <img
+                  className="recomendation-img"
+                  src={ item.strDrinkThumb }
+                  alt={ item.strDrink }
+                />
+                <p data-testid={ `${index}-recomendation-title` }>
+                  { item.strDrink }
+                </p>
+              </a>
+            ))}
+        </div>
+        <button
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Start Recipe
+        </button>
       </div>)}
       {pathname.includes('drinks')
     && (
@@ -94,11 +146,51 @@ function RecipeDetails(props) {
         />
         <p data-testid="recipe-title">{ details?.drinks[0].strDrink }</p>
         <p data-testid="recipe-category">
-          { details?.drinks[0].strCategory }
+          { details?.drinks[0].strAlcoholic }
         </p>
+        <RecipesDetailsIcons />
         <p data-testid="instructions">
           { details?.drinks[0].strInstructions }
         </p>
+        <ul>
+          {measure && measure.map((item, index) => (
+            <li
+              name="drinks"
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ index }
+            >
+              { item }
+            </li>
+          ))}
+          {ingredient && ingredient.map((item, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              name="drinks"
+              key={ item }
+            >
+              { item }
+            </li>
+          ))}
+        </ul>
+        <div className="recomendation">
+          {responseFood && responseFood.meals.sort().slice(0, six)
+            .map((item, index) => (
+              <a
+                data-testid={ `${index}-recomendation-card` }
+                href={ `/drinks/${index.idMeal}` }
+                key={ item.idMeal }
+              >
+                <img
+                  src={ item.strMealThumb }
+                  alt={ item.strMeal }
+                  className="recomendation-img"
+                />
+                <p data-testid={ `${index}-recomendation-title` }>
+                  { item.strMeal }
+                </p>
+              </a>
+            ))}
+        </div>
         <button
           data-testid="start-recipe-btn"
           className="start-recipe-btn"
@@ -107,7 +199,6 @@ function RecipeDetails(props) {
         >
           Start Recipe
         </button>
-
       </div>)}
     </>
   );
