@@ -47,7 +47,7 @@ function RecipesDetailsIcons() {
   const handleClickFavoriteFood = () => {
     const detailsMeal = {
       id: details.meals[0].idMeal,
-      type: 'meal',
+      type: 'food',
       nationality: details.meals[0].strArea,
       category: details.meals[0].strCategory,
       alcoholicOrNot: '',
