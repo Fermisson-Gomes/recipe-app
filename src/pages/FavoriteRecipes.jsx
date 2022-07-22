@@ -43,7 +43,7 @@ function FavoriteRecipes() {
       setFavorites(favoriteLocalStorage);
     }
     if (value === 'foods') {
-      const foods = favoriteLocalStorage.filter((item) => item.type === 'meal');
+      const foods = favoriteLocalStorage.filter((item) => item.type === 'food');
       setFavorites(foods);
     }
     if (value === 'drinks') {
@@ -86,14 +86,15 @@ function FavoriteRecipes() {
       </div>
       <section>
         {favorites && favorites.map((item, index) => (
-          <div key={ item }>
-            {item.type === 'meal' && (
+          <div key={ item.id }>
+            {item.type === 'food' && (
               <>
                 <a href={ `/foods/${item.id}` }>
                   <img
                     src={ item.image }
                     alt="imagem"
                     data-testid={ `${index}-horizontal-image` }
+                    width={ 100 }
                   />
                 </a>
                 <a
@@ -118,6 +119,7 @@ function FavoriteRecipes() {
                     src={ item.image }
                     alt="imagem"
                     data-testid={ `${index}-horizontal-image` }
+                    width={ 100 }
                   />
                 </a>
                 <a
