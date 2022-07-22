@@ -36,13 +36,53 @@ function FavoriteRecipes() {
     setFavorites(removeFavorite);
   };
 
+  const handleClickFilter = (({ target: { value } }) => {
+    const favoriteLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+    if (value === 'all') {
+      setFavorites(favoriteLocalStorage);
+    }
+    if (value === 'foods') {
+      const foods = favoriteLocalStorage.filter((item) => item.type === 'meal');
+      setFavorites(foods);
+    }
+    if (value === 'drinks') {
+      const drinks = favoriteLocalStorage.filter((item) => item.type === 'drink');
+      setFavorites(drinks);
+    }
+  });
+
   return (
     <>
       <Header />
       <div>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Foods</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ handleClickFilter }
+          value="all"
+        >
+          All
+
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ handleClickFilter }
+          value="foods"
+        >
+          Foods
+
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ handleClickFilter }
+          value="drinks"
+        >
+          Drinks
+
+        </button>
       </div>
       <section>
         {favorites && favorites.map((item, index) => (
