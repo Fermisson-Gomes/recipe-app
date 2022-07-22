@@ -97,12 +97,12 @@ function RecipeDetails(props) {
           />
         </object>
         <ul>
-          {measure && measure.map((item, index) => (
+          {measure && measure.filter((n) => n).map((item, index) => (
             <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
               { item }
             </li>
           ))}
-          {ingredient && ingredient.map((item, index) => (
+          {ingredient && ingredient.filter((n) => n).map((item, index) => (
             <li data-testid={ `${index}-ingredient-name-and-measure` } key={ item }>
               { item }
             </li>
@@ -153,7 +153,7 @@ function RecipeDetails(props) {
           { details?.drinks[0].strInstructions }
         </p>
         <ul>
-          {measure && measure.map((item, index) => (
+          {measure && measure.filter((n) => n).map((item, index) => (
             <li
               name="drinks"
               data-testid={ `${index}-ingredient-name-and-measure` }
@@ -162,7 +162,7 @@ function RecipeDetails(props) {
               { item }
             </li>
           ))}
-          {ingredient && ingredient.map((item, index) => (
+          {ingredient && ingredient.filter((n) => n).map((item, index) => (
             <li
               data-testid={ `${index}-ingredient-name-and-measure` }
               name="drinks"
