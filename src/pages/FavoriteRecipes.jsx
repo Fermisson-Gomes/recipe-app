@@ -87,24 +87,49 @@ function FavoriteRecipes() {
       <section>
         {favorites && favorites.map((item, index) => (
           <div key={ item }>
-            <img
-              src={ item.image }
-              alt="imagem"
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
-            { item.type === 'meal' && (
-              <p data-testid={ `${index}-horizontal-top-text` }>
-                { item.nationality }
-                {' '}
-                -
-                {' '}
-                { item.category }
-              </p>)}
-            { item.type === 'drink' && (
-              <p data-testid={ `${index}-horizontal-top-text` }>
-                { item.alcoholicOrNot }
-              </p>)}
+            {item.type === 'meal' && (
+              <>
+                <a href={ `/foods/${item.id}` }>
+                  <img
+                    src={ item.image }
+                    alt="imagem"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </a>
+                <a
+                  href={ `/foods/${item.id}` }
+                >
+                  <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
+
+                </a>
+                <p data-testid={ `${index}-horizontal-top-text` }>
+                  { item.nationality }
+                  {' '}
+                  -
+                  {' '}
+                  { item.category }
+                </p>
+              </>
+            )}
+            {item.type === 'drink' && (
+              <>
+                <a href={ `/drinks/${item.id}` }>
+                  <img
+                    src={ item.image }
+                    alt="imagem"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </a>
+                <a
+                  href={ `/drinks/${item.id}` }
+                >
+                  <p data-testid={ `${index}-horizontal-name` }>{ item.name }</p>
+                </a>
+                <p data-testid={ `${index}-horizontal-top-text` }>
+                  { item.alcoholicOrNot }
+                </p>
+              </>
+            )}
             <p data-testid={ `${index}-horizontal-done-date` }>
               { new Date().toDateString() }
             </p>
