@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import heartIcon from '../images/whiteHeartIcon.svg';
@@ -15,7 +15,26 @@ function RecipesDetailsIcons() {
   const [clickedMessage, setClickMessage] = useState();
   const { details } = useContext(Context);
 
-  const handleClick = () => {
+  useEffect(() => {
+    if (pathname.includes('/foods')) {
+      const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const verifyFavorite = favoritesLocalStorage?.some((item) => item
+        .id === details?.meals[0].idMeal);
+      if (verifyFavorite) {
+        setIsFavorite(true);
+      }
+    }
+    if (pathname.includes('/drink')) {
+      const favoritesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const verifyFavorite = favoritesLocalStorage?.some((item) => item
+        .id === details?.drinks[0].idDrink);
+      if (verifyFavorite) {
+        setIsFavorite(true);
+      }
+    }
+  }, [pathname, details]);
+
+  const handleClickShare = () => {
     const url = `http://localhost:3000${pathname}`;
     const twoSec = 2000;
     clipboardCopy(url);
@@ -90,7 +109,7 @@ function RecipesDetailsIcons() {
     <div>
       <button
         type="button"
-        onClick={ handleClick }
+        onClick={ handleClickShare }
       >
         <img
           src={ shareIcon }
