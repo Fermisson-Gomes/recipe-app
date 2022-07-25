@@ -55,7 +55,6 @@ function RecipesDetailsIcons() {
       image: details.meals[0].strMealThumb,
     };
     const getItemLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(getItemLocalStorage);
 
     if (isFavorite === false) {
       setIsFavorite(true);
