@@ -1,16 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { Context } from '../context/Context';
 
 function Profile() {
-  const { userEmail, setUserEmail, setLoginState } = useContext(Context);
+  const { setLoginState } = useContext(Context);
+  const [usuario, setUsuario] = useState();
   const history = useHistory();
+
+  useEffect(() => {
+    const getUserLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (getUserLocalStorage) {
+      const { email } = getUserLocalStorage;
+      setUsuario(email);
+    }
+  }, []);
 
   const handleClick = () => {
     localStorage.clear();
-    setUserEmail('');
     setLoginState({
       email: '',
       password: '',
@@ -24,7 +32,7 @@ function Profile() {
       <p
         data-testid="profile-email"
       >
-        { userEmail }
+        { usuario }
 
       </p>
       <button
