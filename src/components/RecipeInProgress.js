@@ -9,12 +9,14 @@ function RecipeInProgress() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const { details, ingredient, checked, setChecked,
-    setDetail, setIngredient, setMeasure } = useContext(Context);
+    setDetail, setIngredient, setMeasure, setDisable, disable } = useContext(Context);
 
-  useEffect(() => {
-    const storage = JSON.parse(localStorage.getItem('checklist'));
-    setChecked(storage);
-  }, []);
+  // useEffect(() => {
+  //   const storage = JSON.parse(localStorage.getItem('checklist'));
+  //   setChecked(storage);
+  // }, []);
+
+  // const isDisabled
 
   useEffect(() => {
     if (details && pathname.includes('foods')) {
@@ -41,7 +43,7 @@ function RecipeInProgress() {
 
   useEffect(() => {
     const path = pathname.split('/');
-    console.log(path);
+    // console.log(path);
     const Details = async () => {
       if (pathname.includes('/foods')) {
         const meal = await requestFoodDetails(path[2]);
@@ -59,17 +61,23 @@ function RecipeInProgress() {
     ? 'checked-item' : 'not-checked-item');
 
   const handleCheck = ({ target }) => {
-    const updatedList = [...checked, target.value];
+    let updatedList = [...checked];
     if (target.checked) {
-      const list = checked.filter((item) => target.value !== item);
-      setChecked(list);
-      localStorage.setItem('checklist', JSON.stringify(list));
+      updatedList = [...checked, target.value];
+      // localStorage.setItem('checklist', JSON.stringify(updatedList));
     } else {
       updatedList.splice(checked.indexOf(target.value), 1);
-      setChecked(updatedList);
-      localStorage.setItem('checklist', JSON.stringify(updatedList));
+      // setChecked(updatedList);
+      // localStorage.setItem('checklist', JSON.stringify(updatedList));
     }
+    setChecked(updatedList);
   };
+
+  useEffect(() => {
+    if (ingredient && ingredient.filter((n) => n).length === checked.length) {
+      setDisable(false);
+    }
+  }, [checked]);
 
   return (
     <>
@@ -104,7 +112,7 @@ function RecipeInProgress() {
               type="button"
               data-testid="finish-recipe-btn"
               onClick={ () => history.push('/done-recipes') }
-            // disabled={}
+              disabled={ disable }
             >
               Finalizar
 
@@ -144,6 +152,8 @@ function RecipeInProgress() {
           type="button"
           data-testid="finish-recipe-btn"
           onClick={ () => history.push('/done-recipes') }
+          disabled={ disable }
+
         >
           Finalizar
 
