@@ -20,6 +20,7 @@ function Provider({ children }) {
   const [ingredient, setIngredient] = useState();
   const [measure, setMeasure] = useState();
   const [checked, setChecked] = useState([]);
+  const [disable, setDisable] = useState(true);
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginState((old) => ({ ...old, [name]: value }));
@@ -64,6 +65,8 @@ function Provider({ children }) {
     setIngredient,
     checked,
     setChecked,
+    disable,
+    setDisable,
   };
   return (
     <Context.Provider value={ contextValue }>
