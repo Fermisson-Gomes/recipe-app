@@ -13,7 +13,6 @@ function Provider({ children }) {
   const [responseFood, setResponseFood] = useState(null);
   const [responseDrink, setResponseDrink] = useState(null);
   const [search, setSearch] = useState('');
-  const [userEmail, setUserEmail] = useState('');
   const [categoryMeal, setCategoryMeal] = useState();
   const [categoryDrink, setCategoryDrink] = useState();
   const [details, setDetail] = useState();
@@ -38,6 +37,7 @@ function Provider({ children }) {
       push(`/drinks/${idDrinks}`);
     }
   }, [push, pathname, responseFood, responseDrink]);
+
   const contextValue = {
     loginState,
     handleChange,
@@ -49,8 +49,6 @@ function Provider({ children }) {
     setResponseFood,
     responseDrink,
     setResponseDrink,
-    userEmail,
-    setUserEmail,
     setLoginState,
     categoryDrink,
     categoryMeal,
