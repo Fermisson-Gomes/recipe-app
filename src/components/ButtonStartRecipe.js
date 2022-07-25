@@ -4,25 +4,30 @@ import { useHistory } from 'react-router-dom';
 
 function ButtonStartRecipe(props) {
   const history = useHistory();
+  // const [btnText, setBtnText] = useState('');
+  // const [isBtnVisible, setIsBtnVisible] = useState(true);
   const {
     location: { pathname },
   } = history;
   const { id } = props;
-  //   const [isButtonVisible, setIsButtonVisible] = useState(true);
 
-  //   useEffect(() => {
-  //     const doneRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  // useEffect(() => {
+  //   const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   const getInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const mapgetDoneRecipes = getDoneRecipes.some((item) => item.id === id);
+  //   const keysInProgressDrinks = Object.keys(getInProgressRecipes.cocktails);
+  //   const keysInProgressFoods = Object.keys(getInProgressRecipes.meals);
+  //   const mapKeysInProgressDrinks = keysInProgressDrinks.some((item) => item === id);
+  //   const mapKeysInProgressFoods = keysInProgressFoods.some((item) => item === id);
 
-  //     if (pathname.includes('/foods') && doneRecipe) {
-  //       const findIdRecipe = doneRecipe.some((item) => item.id === id);
-  //       console.log(findIdRecipe);
-  //       setIsButtonVisible(!findIdRecipe);
-  //     }
-  //     if (pathname.includes('/drinks') && doneRecipe) {
-  //       const findIdRecipe = doneRecipe.some((item) => item.idDrink === id);
-  //       setIsButtonVisible(!findIdRecipe);
-  //     }
-  //   }, [pathname, setIsButtonVisible, id]);
+  //   if (mapgetDoneRecipes) {
+  //     setIsBtnVisible(false);
+  //   } else if (!getInProgressRecipes) {
+  //     setBtnText('Continue Recipe');
+  //   } else {
+  //     setBtnText('Start Recipe');
+  //   }
+  // });
 
   return (
     <>
