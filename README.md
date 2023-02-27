@@ -1,13 +1,34 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# 🥙 Recipe App 🥙
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+bem vindos a esse repositório de projeto!
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+este é um projeto proposto pela Trybe com o intuito de exercitar nossas habilidades de hard skill e soft skills. fomos colocados em um grupo para desenvolvermos um aplicativo de receitas utilizando de react e consumindo duas API sendo uma de comidas e outra de bebidas(as duas API estarão mais abaixo).
+
+utilizamos:
+
+React.js
+React testing library
+Context API
+Slack
+Trello
+
+API consumidas:
+https://www.themealdb.com/api/json/v1/1/search.php?s=
+https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
+
+
+welcome to this project repository!
+
+this is a project proposed by Trybe in order to exercise our hard and soft skills. we were placed in a group to develop a recipe application using react and consuming two APIs, one for food and the other for drinks (the two APIs will be further down).
+
+we use:
+
+React.js
+React testing library
+Context API
+Slack
+Trello
+
+Consumed APIs:
+https://www.themealdb.com/api/json/v1/1/search.php?s=
+https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
