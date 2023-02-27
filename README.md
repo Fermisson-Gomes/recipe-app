@@ -7,12 +7,17 @@ este é um projeto proposto pela Trybe com o intuito de exercitar nossas habilid
 utilizamos:
 
 React.js
+
 React testing library
+
 Context API
+
 Slack
+
 Trello
 
 API consumidas:
+
 https://www.themealdb.com/api/json/v1/1/search.php?s=
 
 https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
@@ -25,12 +30,17 @@ this is a project proposed by Trybe in order to exercise our hard and soft skill
 we use:
 
 React.js
+
 React testing library
+
 Context API
+
 Slack
+
 Trello
 
 Consumed APIs:
+
 https://www.themealdb.com/api/json/v1/1/search.php?s=
 
 https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
