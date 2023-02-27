@@ -14,6 +14,7 @@ Trello
 
 API consumidas:
 https://www.themealdb.com/api/json/v1/1/search.php?s=
+
 https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
 
 
@@ -31,4 +32,5 @@ Trello
 
 Consumed APIs:
 https://www.themealdb.com/api/json/v1/1/search.php?s=
+
 https://www.thecocktaildb.com/api/json/v1/1/search.php?s=
